@@ -1,7 +1,7 @@
 import { Typography, Grid, Box, Button } from '@material-ui/core';
 import UserDataTable from 'components/User/DataTable';
 
-const User = () => {
+const UserIndexPage = () => {
   return (
     <>
       <Grid container>
@@ -9,7 +9,7 @@ const User = () => {
           <Typography variant='h4'>สมาชิก</Typography>
         </Grid>
         <Grid item md='6' align='end'>
-          <Button variant='contained' color='primary' size='large'>
+          <Button href="/user/create" variant='contained' color='primary' size='large'>
             เพิ่มผู้ใช้งาน
           </Button>
         </Grid>
@@ -23,4 +23,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default UserIndexPage;

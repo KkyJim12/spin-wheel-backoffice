@@ -9,6 +9,8 @@ import {
 import LoginPage from 'pages/Auth/Login';
 import DashboardPage from 'pages/Dashboard/Dashboard';
 import UserIndexPage from 'pages/User/Index';
+import UserCreatePage from 'pages/User/Create';
+import UserEditPage from 'pages/User/Edit';
 
 const App = () => {
   return (
@@ -28,9 +30,19 @@ const App = () => {
               <DashboardPage />
             </AppLayout>
           </Route>
-          <Route path='/user'>
+          <Route path='/user' exact>
             <AppLayout>
               <UserIndexPage />
+            </AppLayout>
+          </Route>
+          <Route path='/user/create'>
+            <AppLayout>
+              <UserCreatePage />
+            </AppLayout>
+          </Route>
+          <Route path='/user/:id/edit'>
+            <AppLayout>
+              <UserEditPage />
             </AppLayout>
           </Route>
         </Switch>
