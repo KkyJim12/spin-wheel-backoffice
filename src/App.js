@@ -17,6 +17,7 @@ import CodeEditPage from "pages/Code/Edit";
 import PrizeIndexPage from "pages/Prize/Index";
 import PrizeCreatePage from "pages/Prize/Create";
 import PrizeEditPage from "pages/Prize/Edit";
+import SettingIndexPage from "pages/Setting/Index";
 
 const App = () => {
   return (
@@ -79,6 +80,11 @@ const App = () => {
           <Route path="/prize/:id/edit">
             <AppLayout>
               <PrizeEditPage />
+            </AppLayout>
+          </Route>
+          <Route path="/setting">
+            <AppLayout>
+              <SettingIndexPage />
             </AppLayout>
           </Route>
         </Switch>
