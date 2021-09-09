@@ -13,7 +13,7 @@ const LoginForm = () => {
             <TextField fullWidth id='standard-basic' label='อีเมลล์' />
           </Box>
           <Box pb={3}>
-            <TextField fullWidth id='standard-basic' label='รหัสผ่าน' />
+            <TextField type="password" fullWidth id='standard-basic' label='รหัสผ่าน' />
           </Box>
           <Box>
             <Button href="/dashboard" fullWidth variant='contained' color='primary'>
