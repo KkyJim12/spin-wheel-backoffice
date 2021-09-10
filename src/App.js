@@ -17,6 +17,9 @@ import CodeEditPage from "pages/Code/Edit";
 import PrizeIndexPage from "pages/Prize/Index";
 import PrizeCreatePage from "pages/Prize/Create";
 import PrizeEditPage from "pages/Prize/Edit";
+import EventIndexPage from "pages/Event/Index";
+import EventCreatePage from "pages/Event/Create";
+import EventEditPage from "pages/Event/Edit";
 import SettingIndexPage from "pages/Setting/Index";
 
 const App = () => {
@@ -80,6 +83,21 @@ const App = () => {
           <Route path="/prize/:id/edit">
             <AppLayout>
               <PrizeEditPage />
+            </AppLayout>
+          </Route>
+          <Route path="/event" exact>
+            <AppLayout>
+              <EventIndexPage />
+            </AppLayout>
+          </Route>
+          <Route path="/event/create">
+            <AppLayout>
+              <EventCreatePage />
+            </AppLayout>
+          </Route>
+          <Route path="/event/:id/edit">
+            <AppLayout>
+              <EventEditPage />
             </AppLayout>
           </Route>
           <Route path="/setting">

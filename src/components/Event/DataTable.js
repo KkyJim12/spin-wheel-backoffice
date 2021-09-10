@@ -12,20 +12,18 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
-import PrizeImage from "assets/Image/prize-1.png";
-
 const columns = [
-  { id: "id", label: "ลำดับ", minWidth: 25 },
-  { id: "image", label: "รูป", minWidth: 100 },
-  { id: "name", label: "ชื่อของรางวัล", minWidth: 100 },
+  { id: "id", label: "ลำดับ", minWidth: 170 },
+  { id: "name", label: "ชื่อกิจกรรม", minWidth: 170 },
+  { id: "expire_date", label: "วันสิ้นสุดกิจกรรม", minWidth: 100 },
   { id: "created_at", label: "สร้างเมื่อ", minWidth: 100 },
   { id: "manage", label: "จัดการ", minWidth: 100 },
 ];
 
-function createData(id, name, created_at) {
+function createData(id, name, expire_date, created_at) {
   let manage = (
     <>
-      <IconButton href={`prize/${id}/edit`} aria-label="edit" size="small">
+      <IconButton href={`event/${id}/edit`} aria-label="edit" size="small">
         <EditIcon />
       </IconButton>
       <IconButton aria-label="delete" size="small">
@@ -34,19 +32,16 @@ function createData(id, name, created_at) {
     </>
   );
 
-  let image = (
-    <img src={PrizeImage} alt="prize" style={{ width: 100, height: 100 }} />
-  );
-
-  return { id, image, name, created_at, manage };
+  return { id, name, expire_date, created_at, manage };
 }
 
 const rows = [
-  createData(1, "12345abcdef", "20/09/2021"),
-  createData(1, "12345abcdef", "20/09/2021"),
-  createData(1, "12345abcdef", "20/09/2021"),
-  createData(1, "12345abcdef", "20/09/2021"),
-  createData(1, "12345abcdef", "20/09/2021"),
+  createData(1, "สุ่มไอเทมเกม Fifa Online 4", "20/09/2021", "20/09/2021"),
+  createData(2, "สุ่มไอเทมเกม Fifa Online 4", "20/09/2021", "20/09/2021"),
+  createData(3, "สุ่มไอเทมเกม Fifa Online 4", "20/09/2021", "20/09/2021"),
+  createData(4, "สุ่มไอเทมเกม Fifa Online 4", "20/09/2021", "20/09/2021"),
+  createData(5, "สุ่มไอเทมเกม Fifa Online 4", "20/09/2021", "20/09/2021"),
+  createData(6, "สุ่มไอเทมเกม Fifa Online 4", "20/09/2021", "20/09/2021"),
 ];
 
 const useStyles = makeStyles({
@@ -58,7 +53,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PrizeDataTable = () => {
+const EventDataTable = () => {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -124,4 +119,4 @@ const PrizeDataTable = () => {
   );
 };
 
-export default PrizeDataTable;
+export default EventDataTable;
