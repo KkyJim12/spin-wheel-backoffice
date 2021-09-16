@@ -16,13 +16,17 @@ const SettingIndexPage = () => {
   });
 
   const getSetting = async () => {
-    const response = await axios.get(
-      process.env.REACT_APP_API_URL + "/api/v1/settings"
-    );
+    try {
+      const response = await axios.get(
+        process.env.REACT_APP_API_URL + "/api/v1/settings"
+      );
 
-    setBackgroundImage(response.data.data.backgroundImage);
-    setpopUpImage(response.data.data.popUpImage);
-    setBannerImage(response.data.data.bannerImage);
+      setBackgroundImage(response.data.data.backgroundImage);
+      setpopUpImage(response.data.data.popUpImage);
+      setBannerImage(response.data.data.bannerImage);
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   return (
