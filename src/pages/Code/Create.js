@@ -5,10 +5,10 @@ const CodeCreatePage = () => {
   return (
     <>
       <Grid container>
-        <Grid item md="6">
+        <Grid item md={6}>
           <Typography variant="h4">เพิ่มโค๊ด</Typography>
         </Grid>
-        <Grid item md="6" align="end">
+        <Grid item md={6} align="end">
           <Button
             href="/code"
             variant="contained"
@@ -18,7 +18,7 @@ const CodeCreatePage = () => {
             กลับ
           </Button>
         </Grid>
-        <Grid item md="6">
+        <Grid item md={6}>
           <Box mt={2}>
             <CreateForm />
           </Box>

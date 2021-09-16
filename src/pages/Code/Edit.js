@@ -5,10 +5,10 @@ const CodeEditPage = () => {
   return (
     <>
       <Grid container>
-        <Grid item md="6">
+        <Grid item md={6}>
           <Typography variant="h4">แก้ไขโค๊ด</Typography>
         </Grid>
-        <Grid item md="6" align="end">
+        <Grid item md={6} align="end">
           <Button
             href="/code"
             variant="contained"
@@ -18,7 +18,7 @@ const CodeEditPage = () => {
             กลับ
           </Button>
         </Grid>
-        <Grid item md="6">
+        <Grid item md={6}>
           <Box mt={2}>
             <EditForm />
           </Box>
