@@ -5,10 +5,10 @@ const PrizeEditPage = () => {
   return (
     <>
       <Grid container>
-        <Grid item md="6">
+        <Grid item md={6}>
           <Typography variant="h4">แก้ไขของรางวัล</Typography>
         </Grid>
-        <Grid item md="6" align="end">
+        <Grid item md={6} align="end">
           <Button
             href="/prize"
             variant="contained"
@@ -18,7 +18,7 @@ const PrizeEditPage = () => {
             กลับ
           </Button>
         </Grid>
-        <Grid item md="6">
+        <Grid item md={6}>
           <Box mt={2}>
             <EditForm />
           </Box>

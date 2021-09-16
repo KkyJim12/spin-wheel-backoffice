@@ -5,10 +5,10 @@ const PrizeCreatePage = () => {
   return (
     <>
       <Grid container>
-        <Grid item md='6'>
+        <Grid item md={6}>
           <Typography variant='h4'>เพิ่มของรางวัล</Typography>
         </Grid>
-        <Grid item md='6' align='end'>
+        <Grid item md={6} align='end'>
           <Button
             href='/prize'
             variant='contained'
@@ -18,7 +18,7 @@ const PrizeCreatePage = () => {
             กลับ
           </Button>
         </Grid>
-        <Grid item md='6'>
+        <Grid item md={6}>
           <Box mt={2}>
             <CreateForm />
           </Box>

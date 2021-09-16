@@ -65,7 +65,7 @@ const EditForm = () => {
           autoHideDuration={3000}
           onClose={() => setError("")}
         >
-          <Alert severity="error">{error.key}</Alert>
+          <Alert variant="filled" severity="error">{error.key}</Alert>
         </Snackbar>
       )}
       <Card>
