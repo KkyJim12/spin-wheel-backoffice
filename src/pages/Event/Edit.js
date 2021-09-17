@@ -5,10 +5,10 @@ const EventEditPage = () => {
   return (
     <>
       <Grid container>
-        <Grid item md="6">
+        <Grid item md={6}>
           <Typography variant="h4">สร้างกิจกรรม</Typography>
         </Grid>
-        <Grid item md="6" align="end">
+        <Grid item md={6} align="end">
           <Button
             href="/event"
             variant="contained"

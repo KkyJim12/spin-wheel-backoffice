@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -12,98 +12,15 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import PasswordIcon from '@material-ui/icons/Lock';
+import axios from 'axios';
 
 const columns = [
   { id: 'fullname', label: 'ชื่อเต็ม', minWidth: 170 },
-  { id: 'email', label: 'อีเมลล์', minWidth: 100 },
+  { id: 'phone', label: 'เบอร์โทร', minWidth: 100 },
+  { id: 'username', label: 'ไอดี', minWidth: 100 },
+  { id: 'password', label: 'รหัสผ่าน', minWidth: 100 },
   { id: 'created_date', label: 'วันที่สมัคร', minWidth: 100 },
   { id: 'manage', label: 'จัดการ', minWidth: 100 },
-];
-
-function createData(id, fullname, email, created_date) {
-  let manage = (
-    <>
-      <IconButton aria-label='delete' size='small'>
-        <PasswordIcon />
-      </IconButton>
-      <IconButton href={`user/${id}/edit`} aria-label='edit' size='small'>
-        <EditIcon />
-      </IconButton>
-      <IconButton aria-label='delete' size='small'>
-        <DeleteIcon />
-      </IconButton>
-    </>
-  );
-  return { fullname, email, created_date, manage };
-}
-
-const rows = [
-  createData(
-    1,
-    'Piyakarn Nimmakulvirut',
-    'jirakarnjim1@gmail.com',
-    '20/09/2021'
-  ),
-  createData(
-    1,
-    'Piyakarn Nimmakulvirut',
-    'jirakarnjim1@gmail.com',
-    '20/09/2021'
-  ),
-  createData(
-    1,
-    'Piyakarn Nimmakulvirut',
-    'jirakarnjim1@gmail.com',
-    '20/09/2021'
-  ),
-  createData(
-    1,
-    'Piyakarn Nimmakulvirut',
-    'jirakarnjim1@gmail.com',
-    '20/09/2021'
-  ),
-  createData(
-    1,
-    'Piyakarn Nimmakulvirut',
-    'jirakarnjim1@gmail.com',
-    '20/09/2021'
-  ),
-  createData(
-    1,
-    'Piyakarn Nimmakulvirut',
-    'jirakarnjim1@gmail.com',
-    '20/09/2021'
-  ),
-  createData(
-    1,
-    'Piyakarn Nimmakulvirut',
-    'jirakarnjim1@gmail.com',
-    '20/09/2021'
-  ),
-  createData(
-    1,
-    'Piyakarn Nimmakulvirut',
-    'jirakarnjim1@gmail.com',
-    '20/09/2021'
-  ),
-  createData(
-    1,
-    'Piyakarn Nimmakulvirut',
-    'jirakarnjim1@gmail.com',
-    '20/09/2021'
-  ),
-  createData(
-    1,
-    'Piyakarn Nimmakulvirut',
-    'jirakarnjim1@gmail.com',
-    '20/09/2021'
-  ),
-  createData(
-    1,
-    'Piyakarn Nimmakulvirut',
-    'jirakarnjim1@gmail.com',
-    '20/09/2021'
-  ),
 ];
 
 const useStyles = makeStyles({
@@ -117,8 +34,23 @@ const useStyles = makeStyles({
 
 const UserDataTable = () => {
   const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    try {
+      const response = await axios.get(
+        process.env.REACT_APP_API_URL + '/api/v1/users'
+      );
+      console.log(response);
+      setRows(response.data.data);
+    } catch (error) {}
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -127,6 +59,15 @@ const UserDataTable = () => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const deleteUser = async (id) => {
+    try {
+      await axios.delete(process.env.REACT_APP_API_URL + '/api/v1/users/' + id);
+      getUser();
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   return (
@@ -152,16 +93,27 @@ const UserDataTable = () => {
               .map((row) => {
                 return (
                   <TableRow hover role='checkbox' tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
+                    <TableCell>{row.fullname}</TableCell>
+                    <TableCell>{row.phone}</TableCell>
+                    <TableCell>{row.username}</TableCell>
+                    <TableCell>{row.password}</TableCell>
+                    <TableCell>{row.createdAt}</TableCell>
+                    <TableCell>
+                      <IconButton
+                        href={`user/${row.id}/edit`}
+                        aria-label='edit'
+                        size='small'
+                      >
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => deleteUser(row.id)}
+                        aria-label='delete'
+                        size='small'
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
                   </TableRow>
                 );
               })}

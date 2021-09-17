@@ -5,15 +5,20 @@ const UserIndexPage = () => {
   return (
     <>
       <Grid container>
-        <Grid item md='6'>
+        <Grid item md={6}>
           <Typography variant='h4'>สมาชิก</Typography>
         </Grid>
-        <Grid item md='6' align='end'>
-          <Button href="/user/create" variant='contained' color='primary' size='large'>
+        <Grid item md={6} align='end'>
+          <Button
+            href='/user/create'
+            variant='contained'
+            color='primary'
+            size='large'
+          >
             เพิ่มผู้ใช้งาน
           </Button>
         </Grid>
-        <Grid item md='12'>
+        <Grid item md={12}>
           <Box mt={2}>
             <UserDataTable />
           </Box>
