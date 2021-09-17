@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import axios from 'axios';
+import moment from 'moment';
 
 const columns = [
   { id: 'sort', label: 'ลำดับ', minWidth: 170 },
@@ -95,8 +96,12 @@ const EventDataTable = () => {
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{row.id}</TableCell>
                     <TableCell>{row.name}</TableCell>
-                    <TableCell>{row.endDate}</TableCell>
-                    <TableCell>{row.createdAt}</TableCell>
+                    <TableCell>
+                      {moment(row.endDate).format('DD/MM/YYYY')}
+                    </TableCell>
+                    <TableCell>
+                      {moment(row.createdAt).format('DD/MM/YYYY')}
+                    </TableCell>
                     <TableCell>
                       <IconButton
                         href={`event/${row.id}/edit`}

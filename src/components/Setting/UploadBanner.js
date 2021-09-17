@@ -62,7 +62,7 @@ const UploadBanner = (props) => {
           />
           <Box>
             <img
-              style={{ width: "40vw", height: 500, objectFit: "cover" }}
+              style={{ width: "40vw", height: 200, objectFit: "cover" }}
               src={
                 image
                   ? process.env.REACT_APP_API_URL + "/uploads/image/" + image

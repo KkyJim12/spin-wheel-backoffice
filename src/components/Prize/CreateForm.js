@@ -6,8 +6,8 @@ import Button from "@material-ui/core/Button";
 import axios from "axios";
 import Alert from "@material-ui/lab/Alert";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import { Snackbar } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {

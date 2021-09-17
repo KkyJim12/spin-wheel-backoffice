@@ -11,10 +11,11 @@ import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import PasswordIcon from '@material-ui/icons/Lock';
+import moment from 'moment';
 import axios from 'axios';
 
 const columns = [
+  { id: 'sort', label: 'ลำดับ' },
   { id: 'fullname', label: 'ชื่อเต็ม', minWidth: 170 },
   { id: 'phone', label: 'เบอร์โทร', minWidth: 100 },
   { id: 'username', label: 'ไอดี', minWidth: 100 },
@@ -90,14 +91,23 @@ const UserDataTable = () => {
           <TableBody>
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
+              .map((row, index) => {
                 return (
-                  <TableRow hover role='checkbox' tabIndex={-1} key={row.code}>
+                  <TableRow
+                    key={row.id}
+                    hover
+                    role='checkbox'
+                    tabIndex={-1}
+                    key={row.code}
+                  >
+                    <TableCell>{index + 1}</TableCell>
                     <TableCell>{row.fullname}</TableCell>
                     <TableCell>{row.phone}</TableCell>
                     <TableCell>{row.username}</TableCell>
                     <TableCell>{row.password}</TableCell>
-                    <TableCell>{row.createdAt}</TableCell>
+                    <TableCell>
+                      {moment(row.createdAt).format('DD/MM/YYYY')}
+                    </TableCell>
                     <TableCell>
                       <IconButton
                         href={`user/${row.id}/edit`}

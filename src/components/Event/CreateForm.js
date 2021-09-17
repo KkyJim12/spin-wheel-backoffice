@@ -15,11 +15,25 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { useHistory } from 'react-router';
 import moment from 'moment';
+import { Snackbar } from '@material-ui/core';
+import Alert from '@material-ui/lab/ALert';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 600,
+    '& > * + *': {
+      marginTop: theme.spacing(8),
+    },
+  },
+}));
 
 const CreateForm = () => {
+  const classes = useStyles();
   let history = useHistory();
+  let initDate = moment().add(5, 'days').format('YYYY-MM-DDTHH:mm:ss');
   const [name, setName] = useState('');
-  const [endDate, setEndDate] = useState('2021-10-24T10:30');
+  const [endDate, setEndDate] = useState(initDate);
   const [prizeList, setPrizeList] = useState([]);
   const [eventPrizeRandom, setEventPrizeRandom] = useState([
     { id: uuidv4(), prizeValue: '', ratioValue: '', colorValue: '' },
@@ -33,6 +47,7 @@ const CreateForm = () => {
       limitValue: '',
     },
   ]);
+  const [error, setError] = useState([]);
 
   useEffect(() => {
     getPrizeList();
@@ -178,295 +193,325 @@ const CreateForm = () => {
   };
 
   const addEvent = async () => {
-    const response = await axios.post(
-      process.env.REACT_APP_API_URL + '/api/v1/events',
-      {
-        name: name,
-        endDate: endDate,
-        eventPrizeRandom: eventPrizeRandom,
-        eventPrizeExchange: eventPrizeExchange,
-      }
-    );
+    try {
+      const response = await axios.post(
+        process.env.REACT_APP_API_URL + '/api/v1/events',
+        {
+          name: name,
+          endDate: endDate,
+          eventPrizeRandom: eventPrizeRandom,
+          eventPrizeExchange: eventPrizeExchange,
+        }
+      );
 
-    history.push('/event');
+      history.push('/event');
+    } catch (error) {
+      console.log(error.response);
+      setError(error.response.data.errors);
+    }
   };
 
   return (
-    <Box mt={2}>
-      <Grid container>
-        <Grid item md={6}>
-          <Box mb={2} mr={2}>
-            <Card>
-              <Box p={4}>
-                <Box mb={2}>
-                  <TextField
-                    id='standard-basic'
-                    label='ชื่อกิจกรรม'
-                    fullWidth
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </Box>
-                <Box mb={2}>
-                  <TextField
-                    fullWidth
-                    id='datetime-local'
-                    label='วันสิ้นสุดกิจกรรม'
-                    type='datetime-local'
-                    defaultValue='2021-10-24T10:30'
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    onChange={(e) => setEndDate(e.target.value)}
-                  />
-                </Box>
-              </Box>
-            </Card>
-          </Box>
-          <Box mr={2}>
-            <Card>
-              <Box p={4}>
-                <Box display='flex' alignItems='center'>
-                  <Box flexGrow={1}>
-                    <h1>ของรางวัลการสุ่ม</h1>
-                  </Box>
-                  <Box display='flex'>
-                    <Button
-                      onClick={() => addEventPrizeRandom()}
-                      variant='contained'
-                      color='primary'
+    <>
+      {error && (
+        <div className={classes.root}>
+          {error.map((item, index) => {
+            return (
+              <Snackbar
+                key={index}
+                open={true}
+                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                autoHideDuration={3000}
+                onClose={() => setError('')}
+              >
+                <Alert variant='filled' severity='error'>
+                  {item.message}
+                </Alert>
+              </Snackbar>
+            );
+          })}
+        </div>
+      )}
+      <Box mt={2}>
+        <Grid container>
+          <Grid item md={6}>
+            <Box mb={2} mr={2}>
+              <Card>
+                <Box p={4}>
+                  <Box mb={2}>
+                    <TextField
+                      id='standard-basic'
+                      label='ชื่อกิจกรรม'
                       fullWidth
-                    >
-                      เพิ่มของรางวัล
-                    </Button>
-                    <Box ml={2}>
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </Box>
+                  <Box mb={2}>
+                    <TextField
+                      fullWidth
+                      id='datetime-local'
+                      label='วันสิ้นสุดกิจกรรม'
+                      type='datetime-local'
+                      defaultValue={endDate}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      onChange={(e) => setEndDate(e.target.value)}
+                    />
+                  </Box>
+                </Box>
+              </Card>
+            </Box>
+            <Box mr={2}>
+              <Card>
+                <Box p={4}>
+                  <Box display='flex' alignItems='center'>
+                    <Box flexGrow={1}>
+                      <h1>ของรางวัลการสุ่ม</h1>
+                    </Box>
+                    <Box display='flex'>
                       <Button
-                        onClick={() => resetEventPrizeRandom()}
+                        onClick={() => addEventPrizeRandom()}
                         variant='contained'
-                        color='secondary'
+                        color='primary'
                         fullWidth
                       >
-                        รีเซ็ต
+                        เพิ่มของรางวัล
                       </Button>
-                    </Box>
-                  </Box>
-                </Box>
-                <Box my={3}>
-                  <Divider />
-                </Box>
-                {/*  */}
-                {eventPrizeRandom.map((item, index) => {
-                  return (
-                    <Box
-                      key={item.id}
-                      display='flex'
-                      alignItems='center'
-                      mb={2}
-                    >
-                      <Box style={{ width: 200 }} flexGrow={1}>
-                        <FormControl fullWidth>
-                          <InputLabel id='demo-simple-select-label'>
-                            ของรางวัลการสุ่ม
-                          </InputLabel>
-                          <Select
-                            id={item.id}
-                            value={item.value}
-                            onChange={(e) =>
-                              setPrizeRandomSelect(e.target.value, item.id)
-                            }
-                          >
-                            <MenuItem value={''}>กรุณาเลือกของรางวัล</MenuItem>
-                            {prizeList.map((item, index) => {
-                              return (
-                                <MenuItem key={item.id} value={item.id}>
-                                  {item.name}
-                                </MenuItem>
-                              );
-                            })}
-                          </Select>
-                        </FormControl>
-                      </Box>
-                      <Box ml={2} flexGrow={1}>
-                        <TextField
-                          id='standard-basic'
-                          label='อัตราส่วนการได้'
-                          fullWidth
-                          onChange={(e) =>
-                            setPrizeRandomRatio(e.target.value, item.id)
-                          }
-                        />
-                      </Box>
-                      <Box ml={2} flexGrow={1}>
-                        <TextField
-                          id='standard-basic'
-                          label='สีวงล้อ'
-                          fullWidth
-                          onChange={(e) =>
-                            setPrizeRandomColor(e.target.value, item.id)
-                          }
-                        />
-                      </Box>
                       <Box ml={2}>
                         <Button
-                          onClick={() => removeEventPrizeRandom(item.id)}
+                          onClick={() => resetEventPrizeRandom()}
                           variant='contained'
                           color='secondary'
                           fullWidth
                         >
-                          ลบ
+                          รีเซ็ต
                         </Button>
                       </Box>
                     </Box>
-                  );
-                })}
-
-                {/*  */}
-              </Box>
-            </Card>
-          </Box>
-        </Grid>
-        <Grid item md={6}>
-          <Box>
-            <Card>
-              <Box p={4}>
-                <Box display='flex' alignItems='center'>
-                  <Box flexGrow={1}>
-                    <h1>ของรางวัลแลกเปลี่ยน</h1>
                   </Box>
-                  <Box display='flex'>
-                    <Button
-                      onClick={() => addEventPrizeExchange()}
-                      variant='contained'
-                      color='primary'
-                      fullWidth
-                    >
-                      เพิ่มของรางวัล
-                    </Button>
-                    <Box ml={2}>
+                  <Box my={3}>
+                    <Divider />
+                  </Box>
+                  {/*  */}
+                  {eventPrizeRandom.map((item, index) => {
+                    return (
+                      <Box
+                        key={item.id}
+                        display='flex'
+                        alignItems='center'
+                        mb={2}
+                      >
+                        <Box style={{ width: 200 }} flexGrow={1}>
+                          <FormControl fullWidth>
+                            <InputLabel id='demo-simple-select-label'>
+                              ของรางวัลการสุ่ม
+                            </InputLabel>
+                            <Select
+                              id={item.id}
+                              value={item.value}
+                              onChange={(e) =>
+                                setPrizeRandomSelect(e.target.value, item.id)
+                              }
+                            >
+                              <MenuItem value={''}>
+                                กรุณาเลือกของรางวัล
+                              </MenuItem>
+                              {prizeList.map((item, index) => {
+                                return (
+                                  <MenuItem key={item.id} value={item.id}>
+                                    {item.name}
+                                  </MenuItem>
+                                );
+                              })}
+                            </Select>
+                          </FormControl>
+                        </Box>
+                        <Box ml={2} flexGrow={1}>
+                          <TextField
+                            id='standard-basic'
+                            label='อัตราส่วนการได้'
+                            fullWidth
+                            onChange={(e) =>
+                              setPrizeRandomRatio(e.target.value, item.id)
+                            }
+                          />
+                        </Box>
+                        <Box ml={2} flexGrow={1}>
+                          <TextField
+                            id='standard-basic'
+                            label='สีวงล้อ'
+                            fullWidth
+                            onChange={(e) =>
+                              setPrizeRandomColor(e.target.value, item.id)
+                            }
+                          />
+                        </Box>
+                        <Box ml={2}>
+                          <Button
+                            onClick={() => removeEventPrizeRandom(item.id)}
+                            variant='contained'
+                            color='secondary'
+                            fullWidth
+                          >
+                            ลบ
+                          </Button>
+                        </Box>
+                      </Box>
+                    );
+                  })}
+
+                  {/*  */}
+                </Box>
+              </Card>
+            </Box>
+          </Grid>
+          <Grid item md={6}>
+            <Box>
+              <Card>
+                <Box p={4}>
+                  <Box display='flex' alignItems='center'>
+                    <Box flexGrow={1}>
+                      <h1>ของรางวัลแลกเปลี่ยน</h1>
+                    </Box>
+                    <Box display='flex'>
                       <Button
-                        onClick={() => resetEventPrizeExchange()}
+                        onClick={() => addEventPrizeExchange()}
                         variant='contained'
-                        color='secondary'
+                        color='primary'
                         fullWidth
                       >
-                        รีเซ็ต
+                        เพิ่มของรางวัล
                       </Button>
-                    </Box>
-                  </Box>
-                </Box>
-
-                <Box my={3}>
-                  <Divider />
-                </Box>
-                {/*  */}
-                {eventPrizeExchange.map((item, index) => {
-                  return (
-                    <Box
-                      key={item.id}
-                      display='flex'
-                      alignItems='center'
-                      mb={2}
-                    >
-                      <Box style={{ width: 250 }}>
-                        <FormControl fullWidth>
-                          <InputLabel id='demo-simple-select-label'>
-                            ของรางวัลการสุ่ม
-                          </InputLabel>
-                          <Select
-                            value={item.prizeValue}
-                            onChange={(e) =>
-                              setPrizeExchangePrize(e.target.value, item.id)
-                            }
-                          >
-                            <MenuItem value={''}>กรุณาเลือกของรางวัล</MenuItem>
-                            {prizeList.map((item, index) => {
-                              return (
-                                <MenuItem key={item.id} value={item.id}>
-                                  {item.name}
-                                </MenuItem>
-                              );
-                            })}
-                          </Select>
-                        </FormControl>
-                      </Box>
-                      <Box ml={2} style={{ width: 250 }}>
-                        <FormControl fullWidth>
-                          <InputLabel id='demo-simple-select-label'>
-                            ประเภทเหรียญ
-                          </InputLabel>
-                          <Select
-                            value={item.coinValue}
-                            onChange={(e) =>
-                              setPrizeExchangeCoin(e.target.value, item.id)
-                            }
-                          >
-                            <MenuItem value={1}>เหรียญ B</MenuItem>
-                            <MenuItem value={2}>เหรียญ C</MenuItem>
-                          </Select>
-                        </FormControl>
-                      </Box>
                       <Box ml={2}>
-                        <TextField
-                          id='standard-basic'
-                          label='จำนวน'
-                          fullWidth
-                          type='number'
-                          onChange={(e) =>
-                            setPrizeExchangeQty(e.target.value, item.id)
-                          }
-                        />
-                      </Box>
-                      <Box ml={2} flexShrink={1}>
-                        <TextField
-                          id='standard-basic'
-                          label='ลิมิต'
-                          fullWidth
-                          type='number'
-                          onChange={(e) =>
-                            setPrizeExchangeLimit(e.target.value, item.id)
-                          }
-                        />
-                      </Box>
-                      <Box ml={2} flexShrink={1}>
                         <Button
-                          onClick={() => removeEventPrizeExchange(item.id)}
+                          onClick={() => resetEventPrizeExchange()}
                           variant='contained'
                           color='secondary'
                           fullWidth
                         >
-                          ลบ
+                          รีเซ็ต
                         </Button>
                       </Box>
                     </Box>
-                  );
-                })}
+                  </Box>
 
-                {/*  */}
-              </Box>
-            </Card>
-          </Box>
+                  <Box my={3}>
+                    <Divider />
+                  </Box>
+                  {/*  */}
+                  {eventPrizeExchange.map((item, index) => {
+                    return (
+                      <Box
+                        key={item.id}
+                        display='flex'
+                        alignItems='center'
+                        mb={2}
+                      >
+                        <Box style={{ width: 250 }}>
+                          <FormControl fullWidth>
+                            <InputLabel id='demo-simple-select-label'>
+                              ของรางวัลการสุ่ม
+                            </InputLabel>
+                            <Select
+                              value={item.prizeValue}
+                              onChange={(e) =>
+                                setPrizeExchangePrize(e.target.value, item.id)
+                              }
+                            >
+                              <MenuItem value={''}>
+                                กรุณาเลือกของรางวัล
+                              </MenuItem>
+                              {prizeList.map((item, index) => {
+                                return (
+                                  <MenuItem key={item.id} value={item.id}>
+                                    {item.name}
+                                  </MenuItem>
+                                );
+                              })}
+                            </Select>
+                          </FormControl>
+                        </Box>
+                        <Box ml={2} style={{ width: 250 }}>
+                          <FormControl fullWidth>
+                            <InputLabel id='demo-simple-select-label'>
+                              ประเภทเหรียญ
+                            </InputLabel>
+                            <Select
+                              value={item.coinValue}
+                              onChange={(e) =>
+                                setPrizeExchangeCoin(e.target.value, item.id)
+                              }
+                            >
+                              <MenuItem value={1}>เหรียญ B</MenuItem>
+                              <MenuItem value={2}>เหรียญ C</MenuItem>
+                            </Select>
+                          </FormControl>
+                        </Box>
+                        <Box ml={2}>
+                          <TextField
+                            id='standard-basic'
+                            label='จำนวน'
+                            fullWidth
+                            type='number'
+                            onChange={(e) =>
+                              setPrizeExchangeQty(e.target.value, item.id)
+                            }
+                          />
+                        </Box>
+                        <Box ml={2} flexShrink={1}>
+                          <TextField
+                            id='standard-basic'
+                            label='ลิมิต'
+                            fullWidth
+                            type='number'
+                            onChange={(e) =>
+                              setPrizeExchangeLimit(e.target.value, item.id)
+                            }
+                          />
+                        </Box>
+                        <Box ml={2} flexShrink={1}>
+                          <Button
+                            onClick={() => removeEventPrizeExchange(item.id)}
+                            variant='contained'
+                            color='secondary'
+                            fullWidth
+                          >
+                            ลบ
+                          </Button>
+                        </Box>
+                      </Box>
+                    );
+                  })}
+
+                  {/*  */}
+                </Box>
+              </Card>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-      <Box
-        style={{
-          margin: 0,
-          top: 'auto',
-          right: 20,
-          bottom: 20,
-          left: 'auto',
-          position: 'fixed',
-        }}
-      >
-        <Fab
-          onClick={() => addEvent()}
-          color='primary'
-          variant='extended'
-          aria-label='add'
+        <Box
+          style={{
+            margin: 0,
+            top: 'auto',
+            right: 20,
+            bottom: 20,
+            left: 'auto',
+            position: 'fixed',
+          }}
         >
-          <AddIcon />
-          สร้างกิจกรรม
-        </Fab>
+          <Fab
+            onClick={() => addEvent()}
+            color='primary'
+            variant='extended'
+            aria-label='add'
+          >
+            <AddIcon />
+            สร้างกิจกรรม
+          </Fab>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

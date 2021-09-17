@@ -1,34 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import axios from 'axios';
 
-import PrizeImage from "assets/Image/item.jpg";
+import PrizeImage from 'assets/Image/item.jpg';
+import moment from 'moment';
 
 const columns = [
-  { id: "id", label: "ลำดับ", minWidth: 25 },
-  { id: "image", label: "รูป", minWidth: 100 },
-  { id: "name", label: "ชื่อของรางวัล", minWidth: 100 },
-  { id: "created_at", label: "สร้างเมื่อ", minWidth: 100 },
-  { id: "manage", label: "จัดการ", minWidth: 100 },
+  { id: 'id', label: 'ลำดับ', minWidth: 25 },
+  { id: 'image', label: 'รูป', minWidth: 100 },
+  { id: 'name', label: 'ชื่อของรางวัล', minWidth: 100 },
+  { id: 'created_at', label: 'สร้างเมื่อ', minWidth: 100 },
+  { id: 'manage', label: 'จัดการ', minWidth: 100 },
 ];
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
+    width: '100%',
   },
   container: {
-    maxHeight: "100vh",
+    maxHeight: '100vh',
   },
 });
 
@@ -45,7 +46,7 @@ const PrizeDataTable = () => {
   const getPrize = async () => {
     try {
       const response = await axios.get(
-        process.env.REACT_APP_API_URL + "/api/v1/prize"
+        process.env.REACT_APP_API_URL + '/api/v1/prize'
       );
       setRows(response.data.data);
     } catch (error) {
@@ -55,7 +56,7 @@ const PrizeDataTable = () => {
 
   const deletePrize = async (id) => {
     try {
-      await axios.delete(process.env.REACT_APP_API_URL + "/api/v1/prize/" + id);
+      await axios.delete(process.env.REACT_APP_API_URL + '/api/v1/prize/' + id);
 
       getPrize();
     } catch (error) {
@@ -75,7 +76,7 @@ const PrizeDataTable = () => {
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
+        <Table stickyHeader aria-label='sticky table'>
           <TableHead>
             <TableRow>
               {columns.map((column) => (
@@ -94,35 +95,37 @@ const PrizeDataTable = () => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                  <TableRow hover role='checkbox' tabIndex={-1} key={row.id}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>
                       <img
                         src={
                           row.image
                             ? process.env.REACT_APP_API_URL +
-                              "/uploads/image/" +
+                              '/uploads/image/' +
                               row.image
                             : PrizeImage
                         }
-                        alt="prize"
+                        alt='prize'
                         style={{ width: 100, height: 100 }}
                       />
                     </TableCell>
                     <TableCell>{row.name}</TableCell>
-                    <TableCell>{row.createdAt}</TableCell>
+                    <TableCell>
+                      {moment(row.createdAt).format('DD/MM/YYYY')}
+                    </TableCell>
                     <TableCell>
                       <IconButton
                         href={`prize/${row.id}/edit`}
-                        aria-label="edit"
-                        size="small"
+                        aria-label='edit'
+                        size='small'
                       >
                         <EditIcon />
                       </IconButton>
                       <IconButton
                         onClick={() => deletePrize(row.id)}
-                        aria-label="delete"
-                        size="small"
+                        aria-label='delete'
+                        size='small'
                       >
                         <DeleteIcon />
                       </IconButton>
@@ -135,7 +138,7 @@ const PrizeDataTable = () => {
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
-        component="div"
+        component='div'
         count={rows.length}
         rowsPerPage={rowsPerPage}
         page={page}
