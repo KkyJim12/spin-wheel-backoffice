@@ -6,7 +6,7 @@ const UserEditPage = () => {
     <>
       <Grid container>
         <Grid item md='6'>
-          <Typography variant='h4'>เพิ่มสมาชิก</Typography>
+          <Typography variant='h4'>แก้ไขสมาชิก</Typography>
         </Grid>
         <Grid item md='6' align='end'>
           <Button

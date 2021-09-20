@@ -32,10 +32,8 @@ const CreateForm = () => {
     };
 
     let a = genCodeNow();
-    let b = genCodeNow();
-    let c = genCodeNow();
 
-    let randomCode = `${a}-${b}-${c}`;
+    let randomCode = `${a}`;
 
     setPassword(randomCode);
   };
@@ -94,6 +92,7 @@ const CreateForm = () => {
               fullWidth
               onChange={(e) => setPhone(e.target.value)}
               value={phone}
+              inputProps={{ maxlength: 10 }}
             />
           </Box>
           <Box mb={2} display='flex'>

@@ -150,7 +150,7 @@ const EditForm = () => {
               color="secondary"
               fullWidth
             >
-              แก้ไขของรางวัล
+              บันทึกการแก้ไข
             </Button>
           </Box>
         </Box>

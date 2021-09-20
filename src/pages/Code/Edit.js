@@ -6,7 +6,7 @@ const CodeEditPage = () => {
     <>
       <Grid container>
         <Grid item md={6}>
-          <Typography variant="h4">แก้ไขโค๊ด</Typography>
+          <Typography variant="h4">แก้ไขโค้ด</Typography>
         </Grid>
         <Grid item md={6} align="end">
           <Button

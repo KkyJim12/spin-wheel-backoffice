@@ -19,7 +19,8 @@ const columns = [
   { id: 'num', label: 'ลำดับ', minWidth: 170 },
   { id: 'code', label: 'รหัส', minWidth: 170 },
   { id: 'status', label: 'สถานะ', minWidth: 100 },
-  { id: 'created_at', label: 'สร้างเมื่อ', minWidth: 100 },
+  { id: 'createdAt', label: 'สร้างเมื่อ', minWidth: 100 },
+  { id: 'expireDate', label: 'วันหมดอายุ', minWidth: 100 },
   { id: 'manage', label: 'จัดการ', minWidth: 100 },
 ];
 
@@ -108,7 +109,12 @@ const CodeDataTable = () => {
                         color={row.isUsed ? 'secondary' : 'primary'}
                       />
                     </TableCell>
-                    <TableCell>{moment(row.createdAt).format('DD/MM/YYYY')}}</TableCell>
+                    <TableCell>
+                      {moment(row.createdAt).format('DD/MM/YYYY')}
+                    </TableCell>
+                    <TableCell>
+                      {moment(row.expireDate).format('DD/MM/YYYY')}
+                    </TableCell>
                     <TableCell>
                       <IconButton
                         href={`code/${row.id}/edit`}

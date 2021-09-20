@@ -18,6 +18,7 @@ import moment from 'moment';
 import { Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/ALert';
 import { makeStyles } from '@material-ui/core/styles';
+import { ColorPicker, createColor } from 'material-ui-color';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -150,7 +151,7 @@ const EditForm = () => {
       id: uuidv4(),
       prizeValue: '',
       ratioValue: '',
-      colorValue: '',
+      colorValue: 'black',
     };
     setEventPrizeRandom((eventPrizeRandom) => [...eventPrizeRandom, newField]);
   };
@@ -372,7 +373,7 @@ const EditForm = () => {
                             </Select>
                           </FormControl>
                         </Box>
-                        <Box ml={2} flexGrow={1}>
+                        <Box ml={2}>
                           <TextField
                             id='standard-basic'
                             label='อัตราส่วนการได้'
@@ -383,15 +384,14 @@ const EditForm = () => {
                             value={item.ratioValue}
                           />
                         </Box>
+                        <Box alignSelf='end'>%</Box>
                         <Box ml={2} flexGrow={1}>
-                          <TextField
-                            id='standard-basic'
-                            label='สีวงล้อ'
-                            fullWidth
-                            onChange={(e) =>
-                              setPrizeRandomColor(e.target.value, item.id)
-                            }
+                          <ColorPicker
                             value={item.colorValue}
+                            onChange={(value) => {
+                              console.log(value.hex);
+                              setPrizeRandomColor('#' + value.hex, item.id);
+                            }}
                           />
                         </Box>
                         <Box ml={2}>
@@ -490,8 +490,8 @@ const EditForm = () => {
                                 setPrizeExchangeCoin(e.target.value, item.id)
                               }
                             >
-                              <MenuItem value={1}>เหรียญ B</MenuItem>
-                              <MenuItem value={2}>เหรียญ C</MenuItem>
+                              <MenuItem value={1}>เหรียญวงล้อ</MenuItem>
+                              <MenuItem value={2}>เหรียญดาว</MenuItem>
                             </Select>
                           </FormControl>
                         </Box>
@@ -555,8 +555,7 @@ const EditForm = () => {
             variant='extended'
             aria-label='add'
           >
-            <AddIcon />
-            แก้ไขกิจกรรม
+            บันทึกการแก้ไข
           </Fab>
         </Box>
       </Box>

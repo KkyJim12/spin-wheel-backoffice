@@ -18,6 +18,7 @@ import moment from 'moment';
 import { Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/ALert';
 import { makeStyles } from '@material-ui/core/styles';
+import { ColorPicker, createColor } from 'material-ui-color';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +37,12 @@ const CreateForm = () => {
   const [endDate, setEndDate] = useState(initDate);
   const [prizeList, setPrizeList] = useState([]);
   const [eventPrizeRandom, setEventPrizeRandom] = useState([
-    { id: uuidv4(), prizeValue: '', ratioValue: '', colorValue: '' },
+    {
+      id: uuidv4(),
+      prizeValue: '',
+      ratioValue: '',
+      colorValue: 'black',
+    },
   ]);
   const [eventPrizeExchange, setEventPrizeExchange] = useState([
     {
@@ -107,7 +113,7 @@ const CreateForm = () => {
       id: uuidv4(),
       prizeValue: '',
       ratioValue: '',
-      colorValue: '',
+      colorValue: 'black',
     };
     setEventPrizeRandom((eventPrizeRandom) => [...eventPrizeRandom, newField]);
   };
@@ -194,6 +200,7 @@ const CreateForm = () => {
 
   const addEvent = async () => {
     try {
+      console.log(eventPrizeRandom);
       const response = await axios.post(
         process.env.REACT_APP_API_URL + '/api/v1/events',
         {
@@ -327,7 +334,7 @@ const CreateForm = () => {
                             </Select>
                           </FormControl>
                         </Box>
-                        <Box ml={2} flexGrow={1}>
+                        <Box ml={2}>
                           <TextField
                             id='standard-basic'
                             label='อัตราส่วนการได้'
@@ -335,16 +342,17 @@ const CreateForm = () => {
                             onChange={(e) =>
                               setPrizeRandomRatio(e.target.value, item.id)
                             }
+                            type='number'
                           />
                         </Box>
-                        <Box ml={2} flexGrow={1}>
-                          <TextField
-                            id='standard-basic'
-                            label='สีวงล้อ'
-                            fullWidth
-                            onChange={(e) =>
-                              setPrizeRandomColor(e.target.value, item.id)
-                            }
+                        <Box alignSelf='end'>%</Box>
+                        <Box alignSelf='end' ml={2} flexGrow={1}>
+                          <ColorPicker
+                            value={item.colorValue}
+                            onChange={(value) => {
+                              console.log(value.hex);
+                              setPrizeRandomColor('#' + value.hex, item.id);
+                            }}
                           />
                         </Box>
                         <Box ml={2}>
@@ -443,8 +451,8 @@ const CreateForm = () => {
                                 setPrizeExchangeCoin(e.target.value, item.id)
                               }
                             >
-                              <MenuItem value={1}>เหรียญ B</MenuItem>
-                              <MenuItem value={2}>เหรียญ C</MenuItem>
+                              <MenuItem value={1}>เหรียญวงล้อ</MenuItem>
+                              <MenuItem value={2}>เหรียญดาว</MenuItem>
                             </Select>
                           </FormControl>
                         </Box>
@@ -506,8 +514,7 @@ const CreateForm = () => {
             variant='extended'
             aria-label='add'
           >
-            <AddIcon />
-            สร้างกิจกรรม
+            บันทึกกิจกรรม
           </Fab>
         </Box>
       </Box>

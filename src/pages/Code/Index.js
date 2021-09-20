@@ -6,7 +6,7 @@ const CodeIndexPage = () => {
     <>
       <Grid container>
         <Grid item md={6}>
-          <Typography variant="h4">โค๊ด</Typography>
+          <Typography variant="h4">โค้ด</Typography>
         </Grid>
         <Grid item md={6} align="end">
           <Button
@@ -15,7 +15,7 @@ const CodeIndexPage = () => {
             color="primary"
             size="large"
           >
-            เพิ่มโค๊ด
+            เพิ่มโค้ด
           </Button>
         </Grid>
         <Grid item md={12}>

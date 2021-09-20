@@ -6,7 +6,7 @@ const EventEditPage = () => {
     <>
       <Grid container>
         <Grid item md={6}>
-          <Typography variant="h4">สร้างกิจกรรม</Typography>
+          <Typography variant="h4">แก้ไขกิจกรรม</Typography>
         </Grid>
         <Grid item md={6} align="end">
           <Button

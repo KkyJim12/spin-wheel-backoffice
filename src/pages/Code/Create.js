@@ -6,7 +6,7 @@ const CodeCreatePage = () => {
     <>
       <Grid container>
         <Grid item md={6}>
-          <Typography variant="h4">เพิ่มโค๊ด</Typography>
+          <Typography variant="h4">เพิ่มโค้ด</Typography>
         </Grid>
         <Grid item md={6} align="end">
           <Button

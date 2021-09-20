@@ -107,7 +107,7 @@ export default function MiniDrawer(props) {
   const MenuItems = [
     { id: 1, icon: <DashboardIcon />, name: "แดชบอร์ด", link: "/dashboard" },
     { id: 2, icon: <MemberIcon />, name: "สมาชิก", link: "/user" },
-    { id: 3, icon: <CodeIcon />, name: "โค๊ด", link: "/code" },
+    { id: 3, icon: <CodeIcon />, name: "โค้ด", link: "/code" },
     { id: 4, icon: <PrizeIcon />, name: "ของรางวัล", link: "/prize" },
     { id: 5, icon: <StarsIcon />, name: "กิจกรรม", link: "/event" },
     { id: 6, icon: <SettingsIcon />, name: "ตั้งค่า", link: "/setting" },

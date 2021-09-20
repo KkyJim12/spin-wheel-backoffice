@@ -1,17 +1,31 @@
-import { useEffect, useState } from "react";
-import Card from "@material-ui/core/Card";
-import TextField from "@material-ui/core/TextField";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import { useParams, useHistory } from "react-router-dom";
-import axios from "axios";
-import Snackbar from "@material-ui/core/Snackbar";
-import Alert from "@material-ui/lab/Alert";
+import { useEffect, useState } from 'react';
+import Card from '@material-ui/core/Card';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import { useParams, useHistory } from 'react-router-dom';
+import axios from 'axios';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
+import moment from 'moment';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 600,
+    '& > * + *': {
+      marginTop: theme.spacing(8),
+    },
+  },
+}));
 
 const EditForm = () => {
+  const classes = useStyles();
+  let initDate = moment().add(5, 'days').format('YYYY-MM-DDTHH:mm:ss');
   const history = useHistory();
-  const [code, setCode] = useState("");
-  const [error, setError] = useState("");
+  const [code, setCode] = useState('');
+  const [expireDate, setExpireDate] = useState(initDate);
+  const [error, setError] = useState('');
 
   const generateCode = () => {
     const genCodeNow = () => {
@@ -19,10 +33,8 @@ const EditForm = () => {
     };
 
     let a = genCodeNow();
-    let b = genCodeNow();
-    let c = genCodeNow();
 
-    let randomCode = `${a}-${b}-${c}`;
+    let randomCode = `${a}`;
 
     setCode(randomCode);
   };
@@ -35,10 +47,12 @@ const EditForm = () => {
   const getCode = async () => {
     try {
       const response = await axios.get(
-        process.env.REACT_APP_API_URL + "/api/v1/codes/" + id + "/edit"
+        process.env.REACT_APP_API_URL + '/api/v1/codes/' + id + '/edit'
       );
-
       setCode(response.data.data.key);
+      setExpireDate(
+        moment(response.data.data.expireDate).format('YYYY-MM-DDTHH:mm:ss')
+      );
     } catch (error) {
       console.log(error.response);
     }
@@ -46,57 +60,80 @@ const EditForm = () => {
 
   const updateCode = async () => {
     try {
-      await axios.put(process.env.REACT_APP_API_URL + "/api/v1/codes/" + id, {
+      await axios.put(process.env.REACT_APP_API_URL + '/api/v1/codes/' + id, {
         key: code,
+        expireDate: expireDate,
       });
-      history.push("/code");
+      history.push('/code');
     } catch (error) {
-      console.log(error.response);
-      setError(error.response.data.errors[0]);
+      setError(error.response.data.errors);
     }
   };
 
   return (
     <>
-      {error.key && (
-        <Snackbar
-          open={true}
-          anchorOrigin={{ horizontal: "right", vertical: "top" }}
-          autoHideDuration={3000}
-          onClose={() => setError("")}
-        >
-          <Alert variant="filled" severity="error">{error.key}</Alert>
-        </Snackbar>
+      {error && (
+        <div className={classes.root}>
+          {error.map((item, index) => {
+            return (
+              <Snackbar
+                key={index}
+                open={true}
+                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                autoHideDuration={3000}
+                onClose={() => setError('')}
+              >
+                <Alert variant='filled' severity='error'>
+                  {item.message}
+                </Alert>
+              </Snackbar>
+            );
+          })}
+        </div>
       )}
       <Card>
         <Box p={4}>
-          <Box display="flex" mb={2}>
+          <Box display='flex' mb={2}>
             <Box flexGrow={1} mr={2}>
               <TextField
                 value={code}
-                variant="outlined"
-                id="outlined-basic"
-                label="รหัสเติม"
+                variant='outlined'
+                id='outlined-basic'
+                label='รหัสเติม'
                 fullWidth
                 onChange={(e) => setCode(e.target.value)}
               />
             </Box>
             <Button
               onClick={() => generateCode()}
-              variant="contained"
-              color="secondary"
+              variant='contained'
+              color='secondary'
             >
               สร้างรหัสอัตโนมัติ
             </Button>
           </Box>
+          <Box mb={2}>
+            <TextField
+              fullWidth
+              id='datetime-local'
+              label='วันหมดอายุ'
+              type='datetime-local'
+              defaultValue={expireDate}
+              value={expireDate}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={(e) => setExpireDate(e.target.value)}
+            />
+          </Box>
           <Box>
             <Button
               onClick={() => updateCode()}
-              variant="contained"
-              color="secondary"
+              variant='contained'
+              color='secondary'
               fullWidth
             >
-              แก้ไขโค๊ด
+              แก้ไขโค้ด
             </Button>
           </Box>
         </Box>

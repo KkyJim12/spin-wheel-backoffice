@@ -5,10 +5,13 @@ import Button from '@material-ui/core/Button';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router';
-import { Snackbar } from '@material-ui/core';
+import { DialogActions, Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import { useParams } from 'react-router';
+import { Dialog, DialogTitle } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import CopyIcon from '@material-ui/icons/FileCopy';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +44,6 @@ const EditForm = () => {
       console.log(response);
       setFullname(response.data.data.fullname);
       setPhone(response.data.data.phone);
-      setPassword(response.data.data.password);
     } catch (error) {
       console.log(error.response);
     }
@@ -53,12 +55,11 @@ const EditForm = () => {
     };
 
     let a = genCodeNow();
-    let b = genCodeNow();
-    let c = genCodeNow();
 
-    let randomCode = `${a}-${b}-${c}`;
+    let randomCode = `${a}`;
 
     setPassword(randomCode);
+    setOpen(true);
   };
 
   const updateUser = async () => {
@@ -75,6 +76,9 @@ const EditForm = () => {
       setError(error.response.data.errors);
     }
   };
+
+  // Handle Modal
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -97,6 +101,34 @@ const EditForm = () => {
           })}
         </div>
       )}
+
+      {/* Modal */}
+      <Dialog onClose={() => setOpen(false)} open={open}>
+        <DialogTitle>
+          <Box display='flex' alignItems='center'>
+            <Box mr={1}>รหัสผ่านใหม่:</Box> <Box mr={1}>{password}</Box>{' '}
+            <IconButton
+              color='primary'
+              aria-label='Copy password'
+              onClick={() => {
+                navigator.clipboard.writeText(password);
+              }}
+            >
+              <CopyIcon />
+            </IconButton>
+          </Box>
+        </DialogTitle>
+        <DialogActions>
+          <Button
+            onClick={() => setOpen(false)}
+            variant='contained'
+            color='primary'
+          >
+            ตกลง
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* End Modal */}
       <Card>
         <Box p={4}>
           <Box mb={2}>
@@ -133,7 +165,7 @@ const EditForm = () => {
               variant='contained'
               color='secondary'
             >
-              สร้างรหัสผ่านอัตโนมัติ
+              สร้างรหัสผ่านใหม่อัตโนมัติ
             </Button>
           </Box>
 
@@ -141,14 +173,15 @@ const EditForm = () => {
             <Button
               onClick={() => updateUser()}
               variant='contained'
-              color='primary'
+              color='secondary'
               fullWidth
             >
-              เพิ่มสมาชิก
+              บันทึกการแก้ไข
             </Button>
           </Box>
         </Box>
       </Card>
+      {/* Modal */}
     </>
   );
 };

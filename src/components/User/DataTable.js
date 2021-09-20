@@ -19,7 +19,6 @@ const columns = [
   { id: 'fullname', label: 'ชื่อเต็ม', minWidth: 170 },
   { id: 'phone', label: 'เบอร์โทร', minWidth: 100 },
   { id: 'username', label: 'ไอดี', minWidth: 100 },
-  { id: 'password', label: 'รหัสผ่าน', minWidth: 100 },
   { id: 'created_date', label: 'วันที่สมัคร', minWidth: 100 },
   { id: 'manage', label: 'จัดการ', minWidth: 100 },
 ];
@@ -104,7 +103,6 @@ const UserDataTable = () => {
                     <TableCell>{row.fullname}</TableCell>
                     <TableCell>{row.phone}</TableCell>
                     <TableCell>{row.username}</TableCell>
-                    <TableCell>{row.password}</TableCell>
                     <TableCell>
                       {moment(row.createdAt).format('DD/MM/YYYY')}
                     </TableCell>
