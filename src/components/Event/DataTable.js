@@ -103,9 +103,7 @@ const EventDataTable = () => {
                     <TableCell>
                       {moment(row.endDate).format('DD/MM/YYYY')}
                     </TableCell>
-                    <TableCell>
-                      ปกติ
-                    </TableCell>
+                    <TableCell>ปกติ</TableCell>
                     <TableCell>
                       <IconButton
                         href={`event/${row.id}/edit`}
