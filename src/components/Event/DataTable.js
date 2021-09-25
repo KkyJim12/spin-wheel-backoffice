@@ -16,6 +16,7 @@ import moment from 'moment';
 
 const columns = [
   { id: 'sort', label: 'ลำดับ', minWidth: 170 },
+  { id: 'id', label: 'ไอดี', minWidth: 170 },
   { id: 'name', label: 'ชื่อกิจกรรม', minWidth: 170 },
   { id: 'createdAt', label: 'วันที่สร้าง', minWidth: 100 },
   { id: 'endDate', label: 'วันสิ้นสุดกิจกรรม', minWidth: 100 },
@@ -94,6 +95,7 @@ const EventDataTable = () => {
                 return (
                   <TableRow hover role='checkbox' tabIndex={-1} key={row.code}>
                     <TableCell>{index + 1}</TableCell>
+                    <TableCell>{row.id}</TableCell>
                     <TableCell>{row.name}</TableCell>
                     <TableCell>
                       {moment(row.createdAt).format('DD/MM/YYYY')}
