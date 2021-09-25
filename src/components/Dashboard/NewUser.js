@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,10 +9,11 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import { Typography } from '@material-ui/core';
+import moment from 'moment';
 
 const useStyles = makeStyles({
   tableContainer: {
-    maxHeight: '50vh',
+    height: '65vh',
   },
   table: {
     width: '100%',
@@ -20,51 +21,10 @@ const useStyles = makeStyles({
   },
 });
 
-const rows = [
-  {
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    registerDate: '09/06/2021',
-  },
-  {
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    registerDate: '09/06/2021',
-  },
-  {
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    registerDate: '09/06/2021',
-  },
-  {
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    registerDate: '09/06/2021',
-  },
-  {
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    registerDate: '09/06/2021',
-  },
-  {
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    registerDate: '09/06/2021',
-  },
-  {
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    registerDate: '09/06/2021',
-  },
-  {
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    registerDate: '09/06/2021',
-  },
-];
-
-export default function BasicTable() {
+export default function BasicTable(props) {
   const classes = useStyles();
+
+  let rows = props.data;
 
   return (
     <TableContainer className={classes.tableContainer} component={Paper}>
@@ -78,19 +38,23 @@ export default function BasicTable() {
           <TableRow>
             <TableCell>#</TableCell>
             <TableCell align='left'>ชื่อเต็ม</TableCell>
-            <TableCell align='left'>อีเมลล์</TableCell>
+            <TableCell align='left'>เบอร์โทร</TableCell>
             <TableCell align='left'>วันที่สมัคร</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
-            <TableRow key={index}>
-              <TableCell align='left'>{index + 1}</TableCell>
-              <TableCell align='left'>{row.fullname}</TableCell>
-              <TableCell align='left'>{row.email}</TableCell>
-              <TableCell align='left'>{row.registerDate}</TableCell>
-            </TableRow>
-          ))}
+          {rows.map((row, index) => {
+            return (
+              <TableRow key={index}>
+                <TableCell align='left'>{index + 1}</TableCell>
+                <TableCell align='left'>{row.fullname}</TableCell>
+                <TableCell align='left'>{row.phone}</TableCell>
+                <TableCell align='left'>
+                  {moment(row.createdAt).format('DD/MM/YYYY')}
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>

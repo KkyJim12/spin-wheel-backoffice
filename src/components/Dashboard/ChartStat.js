@@ -15,22 +15,26 @@ import {
 } from '@devexpress/dx-react-chart';
 
 const ChartStat = (props) => {
-  const chartData = props.data;
-
   return (
     <Paper elevation={2}>
-      <Box p={2}>
-        <Box display='flex' alignItems='center' mb={1}>
-          <Box mr={2}>
+      <Box p={2} py={5}>
+        <Box
+          display='flex'
+          flexDirection='column'
+          justifyContent='center'
+          alignItems='center'
+          mb={1}
+        >
+          <Box mb={2}>
             <Typography color='primary' variant='h5'>
               {props.title}
             </Typography>
           </Box>
           <Box>
-            <Typography variant='h5'>{props.number}</Typography>
+            <Typography variant='h3'>{props.number}</Typography>
           </Box>
         </Box>
-        <Box>
+        {/* <Box>
           <Chart data={chartData} height={250}>
             <ArgumentAxis />
             <ValueAxis showLine={false} />
@@ -45,7 +49,7 @@ const ChartStat = (props) => {
             <Tooltip />
             <Animation />
           </Chart>
-        </Box>
+        </Box> */}
       </Box>
     </Paper>
   );

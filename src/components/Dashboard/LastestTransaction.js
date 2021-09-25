@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,84 +9,21 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import { Typography } from '@material-ui/core';
+import moment from 'moment';
 
 const useStyles = makeStyles({
   tableContainer: {
-    maxHeight: '50vh',
+    height: '65vh',
   },
   table: {
     width: '100%',
   },
 });
 
-const rows = [
-  {
-    eventName: 'สุ่มไอเทมเกม fifa',
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    prize: 'Ronaldo',
-    date: '09/06/2021',
-  },
-  {
-    eventName: 'สุ่มไอเทมเกม fifa',
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    prize: 'Ronaldo',
-    date: '09/06/2021',
-  },
-  {
-    eventName: 'สุ่มไอเทมเกม fifa',
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    prize: 'Ronaldo',
-    date: '09/06/2021',
-  },
-  {
-    eventName: 'สุ่มไอเทมเกม fifa',
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    prize: 'Ronaldo',
-    date: '09/06/2021',
-  },
-  {
-    eventName: 'สุ่มไอเทมเกม fifa',
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    prize: 'Ronaldo',
-    date: '09/06/2021',
-  },
-  {
-    eventName: 'สุ่มไอเทมเกม fifa',
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    prize: 'Ronaldo',
-    date: '09/06/2021',
-  },
-  {
-    eventName: 'สุ่มไอเทมเกม fifa',
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    prize: 'Ronaldo',
-    date: '09/06/2021',
-  },
-  {
-    eventName: 'สุ่มไอเทมเกม fifa',
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    prize: 'Ronaldo',
-    date: '09/06/2021',
-  },
-  {
-    eventName: 'สุ่มไอเทมเกม fifa',
-    fullname: 'John Doe',
-    email: 'john.doe@gmail.com',
-    prize: 'Ronaldo',
-    date: '09/06/2021',
-  },
-];
-
-export default function BasicTable() {
+export default function BasicTable(props) {
   const classes = useStyles();
+
+  let rows = props.data;
 
   return (
     <TableContainer className={classes.tableContainer} component={Paper}>
@@ -101,22 +38,26 @@ export default function BasicTable() {
             <TableCell>#</TableCell>
             <TableCell align='left'>ชื่อกิจกรรม</TableCell>
             <TableCell align='left'>ชื่อเต็ม</TableCell>
-            <TableCell align='left'>อีเมลล์</TableCell>
+            <TableCell align='left'>เบอร์โทร</TableCell>
             <TableCell align='left'>รางวัล</TableCell>
             <TableCell align='left'>เวลา</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
-            <TableRow key={index}>
-              <TableCell align='left'>{index + 1}</TableCell>
-              <TableCell align='left'>{row.eventName}</TableCell>
-              <TableCell align='left'>{row.fullname}</TableCell>
-              <TableCell align='left'>{row.email}</TableCell>
-              <TableCell align='left'>{row.prize}</TableCell>
-              <TableCell align='left'>{row.date}</TableCell>
-            </TableRow>
-          ))}
+          {rows.map((row, index) => {
+            return (
+              <TableRow key={index}>
+                <TableCell align='left'>{index + 1}</TableCell>
+                <TableCell align='left'>{row.event.name}</TableCell>
+                <TableCell align='left'>{row.user.fullname}</TableCell>
+                <TableCell align='left'>{row.user.phone}</TableCell>
+                <TableCell align='left'>{row.prize.name}</TableCell>
+                <TableCell align='left'>
+                  {moment(row.createdAt).format('DD/MM/YYYY')}
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>
