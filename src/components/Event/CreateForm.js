@@ -1,29 +1,28 @@
-import { useEffect, useState } from 'react';
-import Card from '@material-ui/core/Card';
-import TextField from '@material-ui/core/TextField';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
-import { useHistory } from 'react-router';
-import moment from 'moment';
-import { Snackbar } from '@material-ui/core';
-import Alert from '@material-ui/lab/ALert';
-import { makeStyles } from '@material-ui/core/styles';
-import { ColorPicker, createColor } from 'material-ui-color';
+import { useEffect, useState } from "react";
+import Card from "@material-ui/core/Card";
+import TextField from "@material-ui/core/TextField";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Divider from "@material-ui/core/Divider";
+import Grid from "@material-ui/core/Grid";
+import Fab from "@material-ui/core/Fab";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { useHistory } from "react-router";
+import moment from "moment";
+import { Snackbar } from "@material-ui/core";
+import Alert from "@material-ui/lab/ALert";
+import { makeStyles } from "@material-ui/core/styles";
+import { ColorPicker, createColor } from "material-ui-color";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 600,
-    '& > * + *': {
+    "& > * + *": {
       marginTop: theme.spacing(8),
     },
   },
@@ -32,25 +31,25 @@ const useStyles = makeStyles((theme) => ({
 const CreateForm = () => {
   const classes = useStyles();
   let history = useHistory();
-  let initDate = moment().add(5, 'days').format('YYYY-MM-DDTHH:mm:ss');
-  const [name, setName] = useState('');
+  let initDate = moment().add(5, "days").format("YYYY-MM-DD");
+  const [name, setName] = useState("");
   const [endDate, setEndDate] = useState(initDate);
   const [prizeList, setPrizeList] = useState([]);
   const [eventPrizeRandom, setEventPrizeRandom] = useState([
     {
       id: uuidv4(),
-      prizeValue: '',
-      ratioValue: '',
-      colorValue: 'black',
+      prizeValue: "",
+      ratioValue: "",
+      colorValue: "black",
     },
   ]);
   const [eventPrizeExchange, setEventPrizeExchange] = useState([
     {
       id: uuidv4(),
-      prizeValue: '',
-      coinValue: '',
-      qtyValue: '',
-      limitValue: '',
+      prizeValue: "",
+      coinValue: "",
+      qtyValue: "",
+      limitValue: "",
     },
   ]);
   const [error, setError] = useState([]);
@@ -96,7 +95,7 @@ const CreateForm = () => {
   const getPrizeList = async () => {
     try {
       const response = await axios.get(
-        process.env.REACT_APP_API_URL + '/api/v1/prize'
+        process.env.REACT_APP_API_URL + "/api/v1/prize"
       );
 
       setPrizeList(response.data.data);
@@ -111,9 +110,9 @@ const CreateForm = () => {
   const addEventPrizeRandom = () => {
     const newField = {
       id: uuidv4(),
-      prizeValue: '',
-      ratioValue: '',
-      colorValue: 'black',
+      prizeValue: "",
+      ratioValue: "",
+      colorValue: "black",
     };
     setEventPrizeRandom((eventPrizeRandom) => [...eventPrizeRandom, newField]);
   };
@@ -177,10 +176,10 @@ const CreateForm = () => {
   const addEventPrizeExchange = () => {
     const newField = {
       id: uuidv4(),
-      prizeValue: '',
-      coinValue: '',
-      qtyValue: '',
-      limitValue: '',
+      prizeValue: "",
+      coinValue: "",
+      qtyValue: "",
+      limitValue: "",
     };
     setEventPrizeExchange((eventPrizeExchange) => [
       ...eventPrizeExchange,
@@ -202,7 +201,7 @@ const CreateForm = () => {
     try {
       console.log(eventPrizeRandom);
       const response = await axios.post(
-        process.env.REACT_APP_API_URL + '/api/v1/events',
+        process.env.REACT_APP_API_URL + "/api/v1/events",
         {
           name: name,
           endDate: endDate,
@@ -211,7 +210,7 @@ const CreateForm = () => {
         }
       );
 
-      history.push('/event');
+      history.push("/event");
     } catch (error) {
       console.log(error.response);
       setError(error.response.data.errors);
@@ -227,11 +226,11 @@ const CreateForm = () => {
               <Snackbar
                 key={index}
                 open={true}
-                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: "right", vertical: "top" }}
                 autoHideDuration={3000}
-                onClose={() => setError('')}
+                onClose={() => setError("")}
               >
-                <Alert variant='filled' severity='error'>
+                <Alert variant="filled" severity="error">
                   {item.message}
                 </Alert>
               </Snackbar>
@@ -247,8 +246,8 @@ const CreateForm = () => {
                 <Box p={4}>
                   <Box mb={2}>
                     <TextField
-                      id='standard-basic'
-                      label='ชื่อกิจกรรม'
+                      id="standard-basic"
+                      label="ชื่อกิจกรรม"
                       fullWidth
                       onChange={(e) => setName(e.target.value)}
                     />
@@ -256,9 +255,9 @@ const CreateForm = () => {
                   <Box mb={2}>
                     <TextField
                       fullWidth
-                      id='datetime-local'
-                      label='วันสิ้นสุดกิจกรรม'
-                      type='datetime-local'
+                      id="datetime-local"
+                      label="วันสิ้นสุดกิจกรรม"
+                      type="date"
                       defaultValue={endDate}
                       InputLabelProps={{
                         shrink: true,
@@ -272,15 +271,15 @@ const CreateForm = () => {
             <Box mr={2}>
               <Card>
                 <Box p={4}>
-                  <Box display='flex' alignItems='center'>
+                  <Box display="flex" alignItems="center">
                     <Box flexGrow={1}>
                       <h1>ของรางวัลการสุ่ม</h1>
                     </Box>
-                    <Box display='flex'>
+                    <Box display="flex">
                       <Button
                         onClick={() => addEventPrizeRandom()}
-                        variant='contained'
-                        color='primary'
+                        variant="contained"
+                        color="primary"
                         fullWidth
                       >
                         เพิ่มของรางวัล
@@ -288,8 +287,8 @@ const CreateForm = () => {
                       <Box ml={2}>
                         <Button
                           onClick={() => resetEventPrizeRandom()}
-                          variant='contained'
-                          color='secondary'
+                          variant="contained"
+                          color="secondary"
                           fullWidth
                         >
                           รีเซ็ต
@@ -305,13 +304,13 @@ const CreateForm = () => {
                     return (
                       <Box
                         key={item.id}
-                        display='flex'
-                        alignItems='center'
+                        display="flex"
+                        alignItems="center"
                         mb={2}
                       >
                         <Box style={{ width: 200 }} flexGrow={1}>
                           <FormControl fullWidth>
-                            <InputLabel id='demo-simple-select-label'>
+                            <InputLabel id="demo-simple-select-label">
                               ของรางวัลการสุ่ม
                             </InputLabel>
                             <Select
@@ -321,7 +320,7 @@ const CreateForm = () => {
                                 setPrizeRandomSelect(e.target.value, item.id)
                               }
                             >
-                              <MenuItem value={''}>
+                              <MenuItem value={""}>
                                 กรุณาเลือกของรางวัล
                               </MenuItem>
                               {prizeList.map((item, index) => {
@@ -336,30 +335,30 @@ const CreateForm = () => {
                         </Box>
                         <Box ml={2}>
                           <TextField
-                            id='standard-basic'
-                            label='อัตราส่วนการได้'
+                            id="standard-basic"
+                            label="อัตราส่วนการได้"
                             fullWidth
                             onChange={(e) =>
                               setPrizeRandomRatio(e.target.value, item.id)
                             }
-                            type='number'
+                            type="number"
                           />
                         </Box>
-                        <Box alignSelf='end'>%</Box>
-                        <Box alignSelf='end' ml={2} flexGrow={1}>
+                        <Box alignSelf="end">%</Box>
+                        <Box alignSelf="end" ml={2}>
                           <ColorPicker
                             value={item.colorValue}
                             onChange={(value) => {
-                              console.log(value.hex);
-                              setPrizeRandomColor('#' + value.hex, item.id);
+                              setPrizeRandomColor("#" + value.hex, item.id);
                             }}
+                            hideTextfield
                           />
                         </Box>
                         <Box ml={2}>
                           <Button
                             onClick={() => removeEventPrizeRandom(item.id)}
-                            variant='contained'
-                            color='secondary'
+                            variant="contained"
+                            color="secondary"
                             fullWidth
                           >
                             ลบ
@@ -378,15 +377,15 @@ const CreateForm = () => {
             <Box>
               <Card>
                 <Box p={4}>
-                  <Box display='flex' alignItems='center'>
+                  <Box display="flex" alignItems="center">
                     <Box flexGrow={1}>
                       <h1>ของรางวัลแลกเปลี่ยน</h1>
                     </Box>
-                    <Box display='flex'>
+                    <Box display="flex">
                       <Button
                         onClick={() => addEventPrizeExchange()}
-                        variant='contained'
-                        color='primary'
+                        variant="contained"
+                        color="primary"
                         fullWidth
                       >
                         เพิ่มของรางวัล
@@ -394,8 +393,8 @@ const CreateForm = () => {
                       <Box ml={2}>
                         <Button
                           onClick={() => resetEventPrizeExchange()}
-                          variant='contained'
-                          color='secondary'
+                          variant="contained"
+                          color="secondary"
                           fullWidth
                         >
                           รีเซ็ต
@@ -412,13 +411,13 @@ const CreateForm = () => {
                     return (
                       <Box
                         key={item.id}
-                        display='flex'
-                        alignItems='center'
+                        display="flex"
+                        alignItems="center"
                         mb={2}
                       >
                         <Box style={{ width: 250 }}>
                           <FormControl fullWidth>
-                            <InputLabel id='demo-simple-select-label'>
+                            <InputLabel id="demo-simple-select-label">
                               ของรางวัลการสุ่ม
                             </InputLabel>
                             <Select
@@ -427,7 +426,7 @@ const CreateForm = () => {
                                 setPrizeExchangePrize(e.target.value, item.id)
                               }
                             >
-                              <MenuItem value={''}>
+                              <MenuItem value={""}>
                                 กรุณาเลือกของรางวัล
                               </MenuItem>
                               {prizeList.map((item, index) => {
@@ -442,7 +441,7 @@ const CreateForm = () => {
                         </Box>
                         <Box ml={2} style={{ width: 250 }}>
                           <FormControl fullWidth>
-                            <InputLabel id='demo-simple-select-label'>
+                            <InputLabel id="demo-simple-select-label">
                               ประเภทเหรียญ
                             </InputLabel>
                             <Select
@@ -458,10 +457,10 @@ const CreateForm = () => {
                         </Box>
                         <Box ml={2}>
                           <TextField
-                            id='standard-basic'
-                            label='จำนวน'
+                            id="standard-basic"
+                            label="จำนวน"
                             fullWidth
-                            type='number'
+                            type="number"
                             onChange={(e) =>
                               setPrizeExchangeQty(e.target.value, item.id)
                             }
@@ -469,10 +468,10 @@ const CreateForm = () => {
                         </Box>
                         <Box ml={2} flexShrink={1}>
                           <TextField
-                            id='standard-basic'
-                            label='ลิมิต'
+                            id="standard-basic"
+                            label="ลิมิต"
                             fullWidth
-                            type='number'
+                            type="number"
                             onChange={(e) =>
                               setPrizeExchangeLimit(e.target.value, item.id)
                             }
@@ -481,8 +480,8 @@ const CreateForm = () => {
                         <Box ml={2} flexShrink={1}>
                           <Button
                             onClick={() => removeEventPrizeExchange(item.id)}
-                            variant='contained'
-                            color='secondary'
+                            variant="contained"
+                            color="secondary"
                             fullWidth
                           >
                             ลบ
@@ -501,18 +500,18 @@ const CreateForm = () => {
         <Box
           style={{
             margin: 0,
-            top: 'auto',
+            top: "auto",
             right: 20,
             bottom: 20,
-            left: 'auto',
-            position: 'fixed',
+            left: "auto",
+            position: "fixed",
           }}
         >
           <Fab
             onClick={() => addEvent()}
-            color='primary'
-            variant='extended'
-            aria-label='add'
+            color="primary"
+            variant="extended"
+            aria-label="add"
           >
             บันทึกกิจกรรม
           </Fab>

@@ -10,6 +10,7 @@ const SettingIndexPage = () => {
   const [backgroundImage, setBackgroundImage] = useState("");
   const [popUpImage, setpopUpImage] = useState("");
   const [bannerImage, setBannerImage] = useState("");
+  const [bannerLink, setBannerLink] = useState("");
 
   useEffect(() => {
     getSetting();
@@ -24,6 +25,7 @@ const SettingIndexPage = () => {
       setBackgroundImage(response.data.data.backgroundImage);
       setpopUpImage(response.data.data.popUpImage);
       setBannerImage(response.data.data.bannerImage);
+      setBannerLink(response.data.data.bannerLink);
     } catch (error) {
       console.log(error.response);
     }
@@ -47,7 +49,7 @@ const SettingIndexPage = () => {
               </Box>
               <Box>
                 <Grid item md={12}>
-                  <UploadBanner image={bannerImage} />
+                  <UploadBanner bannerLink={bannerLink} image={bannerImage} />
                 </Grid>
               </Box>
             </Grid>

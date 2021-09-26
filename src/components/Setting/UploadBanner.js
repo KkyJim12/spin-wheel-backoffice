@@ -4,6 +4,7 @@ import Box from "@material-ui/core/Box";
 import Banner from "assets/Image/banner.png";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import { TextField } from "@material-ui/core";
 
 const UploadBanner = (props) => {
   const handleUpload = () => {
@@ -11,10 +12,12 @@ const UploadBanner = (props) => {
   };
 
   const [image, setImage] = useState();
+  const [bannerLink, setBannerLink] = useState("");
 
   useEffect(() => {
     setImage(props.image);
-  }, [props.image]);
+    setBannerLink(props.bannerLink);
+  }, [props.image, props.bannerLink]);
 
   const uploadBanner = async (data) => {
     try {
@@ -37,9 +40,20 @@ const UploadBanner = (props) => {
     }
   };
 
+  const uploadLink = async () => {
+    try {
+      const response = await axios.post(
+        process.env.REACT_APP_API_URL + "/api/v1/settings/banner-link",
+        { bannerLink: bannerLink }
+      );
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
   return (
     <>
-      <Card style={{ height: "40vh" }}>
+      <Card style={{ height: "45vh" }}>
         <Box p={5}>
           <h1>อัพโหลดแบนเนอร์</h1>
           <Box display="flex" alignItems="center" mb={2}>
@@ -62,7 +76,7 @@ const UploadBanner = (props) => {
           />
           <Box>
             <img
-              style={{ width: "40vw", height: 200, objectFit: "cover" }}
+              style={{ width: "40vw", height: 150, objectFit: "cover" }}
               src={
                 image
                   ? process.env.REACT_APP_API_URL + "/uploads/image/" + image
@@ -70,6 +84,24 @@ const UploadBanner = (props) => {
               }
               alt="banner"
             />
+          </Box>
+          <Box mt={3} display="flex">
+            <TextField
+              id="outlined-basic"
+              label="ลิงค์"
+              variant="outlined"
+              fullWidth
+              placeholder="https://google.co.th"
+              value={bannerLink}
+              onChange={(e) => setBannerLink(e.target.value)}
+            />
+            <Button
+              onClick={() => uploadLink()}
+              variant="contained"
+              color="primary"
+            >
+              บันทึก
+            </Button>
           </Box>
         </Box>
       </Card>

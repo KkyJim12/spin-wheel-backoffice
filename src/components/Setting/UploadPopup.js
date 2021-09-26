@@ -39,7 +39,7 @@ const UploadPopup = (props) => {
 
   return (
     <>
-      <Card style={{ height: "40vh" }}>
+      <Card style={{ height: "35vh" }}>
         <Box p={5}>
           <h1>อัพโหลดป๊อปอัพ</h1>
           <Box display="flex" alignItems="center" mb={2}>
@@ -62,7 +62,7 @@ const UploadPopup = (props) => {
           />
           <Box>
             <img
-              style={{ width: "40vw", height: 200, objectFit: "cover" }}
+              style={{ width: "40vw", height: 150, objectFit: "cover" }}
               src={
                 image
                   ? process.env.REACT_APP_API_URL + "/uploads/image/" + image

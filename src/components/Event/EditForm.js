@@ -1,29 +1,29 @@
-import { useEffect, useState } from 'react';
-import Card from '@material-ui/core/Card';
-import TextField from '@material-ui/core/TextField';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
-import { useHistory, useParams } from 'react-router';
-import moment from 'moment';
-import { Snackbar } from '@material-ui/core';
-import Alert from '@material-ui/lab/ALert';
-import { makeStyles } from '@material-ui/core/styles';
-import { ColorPicker, createColor } from 'material-ui-color';
+import { useEffect, useState } from "react";
+import Card from "@material-ui/core/Card";
+import TextField from "@material-ui/core/TextField";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Divider from "@material-ui/core/Divider";
+import Grid from "@material-ui/core/Grid";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { useHistory, useParams } from "react-router";
+import moment from "moment";
+import { Snackbar } from "@material-ui/core";
+import Alert from "@material-ui/lab/ALert";
+import { makeStyles } from "@material-ui/core/styles";
+import { ColorPicker, createColor } from "material-ui-color";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 600,
-    '& > * + *': {
+    "& > * + *": {
       marginTop: theme.spacing(8),
     },
   },
@@ -32,19 +32,19 @@ const useStyles = makeStyles((theme) => ({
 const EditForm = () => {
   const classes = useStyles();
   let history = useHistory();
-  const [name, setName] = useState('');
-  const [endDate, setEndDate] = useState('2021-10-24T10:30');
+  const [name, setName] = useState("");
+  const [endDate, setEndDate] = useState("2021-10-24");
   const [prizeList, setPrizeList] = useState([]);
   const [eventPrizeRandom, setEventPrizeRandom] = useState([
-    { id: uuidv4(), prizeValue: '', ratioValue: '', colorValue: '' },
+    { id: uuidv4(), prizeValue: "", ratioValue: "", colorValue: "" },
   ]);
   const [eventPrizeExchange, setEventPrizeExchange] = useState([
     {
       id: uuidv4(),
-      prizeValue: '',
-      coinValue: '',
-      qtyValue: '',
-      limitValue: '',
+      prizeValue: "",
+      coinValue: "",
+      qtyValue: "",
+      limitValue: "",
     },
   ]);
 
@@ -59,7 +59,7 @@ const EditForm = () => {
   const getEvent = async () => {
     try {
       const response = await axios.get(
-        process.env.REACT_APP_API_URL + '/api/v1/events/' + id + '/edit'
+        process.env.REACT_APP_API_URL + "/api/v1/events/" + id + "/edit"
       );
 
       let newEventPrizeRandom = response.data.data.eventPrizeRandom;
@@ -91,7 +91,7 @@ const EditForm = () => {
       setEventPrizeExchange(newEventPrizeExchange);
       setName(response.data.data.event.name);
       setEndDate(
-        moment(response.data.data.event.endDate).format('YYYY-MM-DDTHH:mm:ss')
+        moment(response.data.data.event.endDate).format("YYYY-MM-DD")
       );
       setEventPrizeExchange(response.data.data.eventPrizeExchange);
     } catch (error) {
@@ -135,7 +135,7 @@ const EditForm = () => {
   const getPrizeList = async () => {
     try {
       const response = await axios.get(
-        process.env.REACT_APP_API_URL + '/api/v1/prize'
+        process.env.REACT_APP_API_URL + "/api/v1/prize"
       );
 
       setPrizeList(response.data.data);
@@ -149,9 +149,9 @@ const EditForm = () => {
   const addEventPrizeRandom = () => {
     const newField = {
       id: uuidv4(),
-      prizeValue: '',
-      ratioValue: '',
-      colorValue: 'black',
+      prizeValue: "",
+      ratioValue: "",
+      colorValue: "black",
     };
     setEventPrizeRandom((eventPrizeRandom) => [...eventPrizeRandom, newField]);
   };
@@ -215,10 +215,10 @@ const EditForm = () => {
   const addEventPrizeExchange = () => {
     const newField = {
       id: uuidv4(),
-      prizeValue: '',
-      coinValue: '',
-      qtyValue: '',
-      limitValue: '',
+      prizeValue: "",
+      coinValue: "",
+      qtyValue: "",
+      limitValue: "",
     };
     setEventPrizeExchange((eventPrizeExchange) => [
       ...eventPrizeExchange,
@@ -239,7 +239,7 @@ const EditForm = () => {
   const updateEvent = async () => {
     try {
       const response = await axios.put(
-        process.env.REACT_APP_API_URL + '/api/v1/events/' + id,
+        process.env.REACT_APP_API_URL + "/api/v1/events/" + id,
         {
           name: name,
           endDate: endDate,
@@ -248,7 +248,7 @@ const EditForm = () => {
         }
       );
 
-      history.push('/event');
+      history.push("/event");
     } catch (error) {
       console.log(error.response);
       setError(error.response.data.errors);
@@ -264,11 +264,11 @@ const EditForm = () => {
               <Snackbar
                 key={index}
                 open={true}
-                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: "right", vertical: "top" }}
                 autoHideDuration={3000}
-                onClose={() => setError('')}
+                onClose={() => setError("")}
               >
-                <Alert variant='filled' severity='error'>
+                <Alert variant="filled" severity="error">
                   {item.message}
                 </Alert>
               </Snackbar>
@@ -284,8 +284,8 @@ const EditForm = () => {
                 <Box p={4}>
                   <Box mb={2}>
                     <TextField
-                      id='standard-basic'
-                      label='ชื่อกิจกรรม'
+                      id="standard-basic"
+                      label="ชื่อกิจกรรม"
                       fullWidth
                       onChange={(e) => setName(e.target.value)}
                       value={name}
@@ -294,9 +294,9 @@ const EditForm = () => {
                   <Box mb={2}>
                     <TextField
                       fullWidth
-                      id='datetime-local'
-                      label='วันสิ้นสุดกิจกรรม'
-                      type='datetime-local'
+                      id="date"
+                      label="วันสิ้นสุดกิจกรรม"
+                      type="date"
                       defaultValue={endDate}
                       InputLabelProps={{
                         shrink: true,
@@ -311,15 +311,15 @@ const EditForm = () => {
             <Box mr={2}>
               <Card>
                 <Box p={4}>
-                  <Box display='flex' alignItems='center'>
+                  <Box display="flex" alignItems="center">
                     <Box flexGrow={1}>
                       <h1>ของรางวัลการสุ่ม</h1>
                     </Box>
-                    <Box display='flex'>
+                    <Box display="flex">
                       <Button
                         onClick={() => addEventPrizeRandom()}
-                        variant='contained'
-                        color='primary'
+                        variant="contained"
+                        color="primary"
                         fullWidth
                       >
                         เพิ่มของรางวัล
@@ -327,8 +327,8 @@ const EditForm = () => {
                       <Box ml={2}>
                         <Button
                           onClick={() => resetEventPrizeRandom()}
-                          variant='contained'
-                          color='secondary'
+                          variant="contained"
+                          color="secondary"
                           fullWidth
                         >
                           รีเซ็ต
@@ -344,13 +344,13 @@ const EditForm = () => {
                     return (
                       <Box
                         key={item.id}
-                        display='flex'
-                        alignItems='center'
+                        display="flex"
+                        alignItems="center"
                         mb={2}
                       >
                         <Box style={{ width: 200 }} flexGrow={1}>
                           <FormControl fullWidth>
-                            <InputLabel id='demo-simple-select-label'>
+                            <InputLabel id="demo-simple-select-label">
                               ของรางวัลการสุ่ม
                             </InputLabel>
                             <Select
@@ -360,7 +360,7 @@ const EditForm = () => {
                                 setPrizeRandomSelect(e.target.value, item.id)
                               }
                             >
-                              <MenuItem value={''}>
+                              <MenuItem value={""}>
                                 กรุณาเลือกของรางวัล
                               </MenuItem>
                               {prizeList.map((item, index) => {
@@ -375,8 +375,8 @@ const EditForm = () => {
                         </Box>
                         <Box ml={2}>
                           <TextField
-                            id='standard-basic'
-                            label='อัตราส่วนการได้'
+                            id="standard-basic"
+                            label="อัตราส่วนการได้"
                             fullWidth
                             onChange={(e) =>
                               setPrizeRandomRatio(e.target.value, item.id)
@@ -384,21 +384,22 @@ const EditForm = () => {
                             value={item.ratioValue}
                           />
                         </Box>
-                        <Box alignSelf='end'>%</Box>
-                        <Box ml={2} flexGrow={1}>
+                        <Box alignSelf="end">%</Box>
+                        <Box ml={2}>
                           <ColorPicker
                             value={item.colorValue}
                             onChange={(value) => {
                               console.log(value.hex);
-                              setPrizeRandomColor('#' + value.hex, item.id);
+                              setPrizeRandomColor("#" + value.hex, item.id);
                             }}
+                            hideTextfield
                           />
                         </Box>
                         <Box ml={2}>
                           <Button
                             onClick={() => removeEventPrizeRandom(item.id)}
-                            variant='contained'
-                            color='secondary'
+                            variant="contained"
+                            color="secondary"
                             fullWidth
                           >
                             ลบ
@@ -417,15 +418,15 @@ const EditForm = () => {
             <Box>
               <Card>
                 <Box p={4}>
-                  <Box display='flex' alignItems='center'>
+                  <Box display="flex" alignItems="center">
                     <Box flexGrow={1}>
                       <h1>ของรางวัลแลกเปลี่ยน</h1>
                     </Box>
-                    <Box display='flex'>
+                    <Box display="flex">
                       <Button
                         onClick={() => addEventPrizeExchange()}
-                        variant='contained'
-                        color='primary'
+                        variant="contained"
+                        color="primary"
                         fullWidth
                       >
                         เพิ่มของรางวัล
@@ -433,8 +434,8 @@ const EditForm = () => {
                       <Box ml={2}>
                         <Button
                           onClick={() => resetEventPrizeExchange()}
-                          variant='contained'
-                          color='secondary'
+                          variant="contained"
+                          color="secondary"
                           fullWidth
                         >
                           รีเซ็ต
@@ -451,13 +452,13 @@ const EditForm = () => {
                     return (
                       <Box
                         key={item.id}
-                        display='flex'
-                        alignItems='center'
+                        display="flex"
+                        alignItems="center"
                         mb={2}
                       >
                         <Box style={{ width: 250 }}>
                           <FormControl fullWidth>
-                            <InputLabel id='demo-simple-select-label'>
+                            <InputLabel id="demo-simple-select-label">
                               ของรางวัลการสุ่ม
                             </InputLabel>
                             <Select
@@ -466,7 +467,7 @@ const EditForm = () => {
                                 setPrizeExchangePrize(e.target.value, item.id)
                               }
                             >
-                              <MenuItem value={''}>
+                              <MenuItem value={""}>
                                 กรุณาเลือกของรางวัล
                               </MenuItem>
                               {prizeList.map((item, index) => {
@@ -481,7 +482,7 @@ const EditForm = () => {
                         </Box>
                         <Box ml={2} style={{ width: 250 }}>
                           <FormControl fullWidth>
-                            <InputLabel id='demo-simple-select-label'>
+                            <InputLabel id="demo-simple-select-label">
                               ประเภทเหรียญ
                             </InputLabel>
                             <Select
@@ -497,10 +498,10 @@ const EditForm = () => {
                         </Box>
                         <Box ml={2}>
                           <TextField
-                            id='standard-basic'
-                            label='จำนวน'
+                            id="standard-basic"
+                            label="จำนวน"
                             fullWidth
-                            type='number'
+                            type="number"
                             onChange={(e) =>
                               setPrizeExchangeQty(e.target.value, item.id)
                             }
@@ -509,10 +510,10 @@ const EditForm = () => {
                         </Box>
                         <Box ml={2} flexShrink={1}>
                           <TextField
-                            id='standard-basic'
-                            label='ลิมิต'
+                            id="standard-basic"
+                            label="ลิมิต"
                             fullWidth
-                            type='number'
+                            type="number"
                             onChange={(e) =>
                               setPrizeExchangeLimit(e.target.value, item.id)
                             }
@@ -522,8 +523,8 @@ const EditForm = () => {
                         <Box ml={2} flexShrink={1}>
                           <Button
                             onClick={() => removeEventPrizeExchange(item.id)}
-                            variant='contained'
-                            color='secondary'
+                            variant="contained"
+                            color="secondary"
                             fullWidth
                           >
                             ลบ
@@ -542,18 +543,18 @@ const EditForm = () => {
         <Box
           style={{
             margin: 0,
-            top: 'auto',
+            top: "auto",
             right: 20,
             bottom: 20,
-            left: 'auto',
-            position: 'fixed',
+            left: "auto",
+            position: "fixed",
           }}
         >
           <Fab
             onClick={() => updateEvent()}
-            color='secondary'
-            variant='extended'
-            aria-label='add'
+            color="secondary"
+            variant="extended"
+            aria-label="add"
           >
             บันทึกการแก้ไข
           </Fab>
