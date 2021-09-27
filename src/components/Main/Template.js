@@ -19,6 +19,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/DashboardOutlined";
 import MemberIcon from "@material-ui/icons/PeopleOutline";
 import CodeIcon from "@material-ui/icons/KeyboardOutlined";
+import RandomIcon from '@material-ui/icons/NotesOutlined'
+import ExchangeIcon from '@material-ui/icons/SyncAltOutlined'
 import StarsIcon from "@material-ui/icons/StarsOutlined";
 import PrizeIcon from "@material-ui/icons/EmojiEventsOutlined";
 import SettingsIcon from "@material-ui/icons/SettingsOutlined";
@@ -107,10 +109,12 @@ export default function MiniDrawer(props) {
   const MenuItems = [
     { id: 1, icon: <DashboardIcon />, name: "แดชบอร์ด", link: "/dashboard" },
     { id: 2, icon: <MemberIcon />, name: "สมาชิก", link: "/user" },
-    { id: 3, icon: <CodeIcon />, name: "โค้ด", link: "/code" },
-    { id: 4, icon: <PrizeIcon />, name: "ของรางวัล", link: "/prize" },
-    { id: 5, icon: <StarsIcon />, name: "กิจกรรม", link: "/event" },
-    { id: 6, icon: <SettingsIcon />, name: "ตั้งค่า", link: "/setting" },
+    { id: 3, icon: <RandomIcon />, name: "ประวัติการสุ่ม", link: "/random" },
+    { id: 4, icon: <ExchangeIcon />, name: "ประวัติการแลก", link: "/exchange" },
+    { id: 5, icon: <CodeIcon />, name: "โค้ด", link: "/code" },
+    { id: 6, icon: <PrizeIcon />, name: "ของรางวัล", link: "/prize" },
+    { id: 7, icon: <StarsIcon />, name: "กิจกรรม", link: "/event" },
+    { id: 8, icon: <SettingsIcon />, name: "ตั้งค่า", link: "/setting" },
   ];
 
   return (
