@@ -112,7 +112,7 @@ const PrizeDataTable = () => {
                 .map((row, index) => {
                   return (
                     <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                      <TableCell>{index + 1}</TableCell>
+                      <TableCell>{page * rowsPerPage + index + 1}</TableCell>
                       <TableCell>
                         <img
                           src={

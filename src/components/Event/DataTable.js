@@ -115,7 +115,7 @@ const EventDataTable = () => {
                       tabIndex={-1}
                       key={row.code}
                     >
-                      <TableCell>{index + 1}</TableCell>
+                      <TableCell>{page * rowsPerPage + index + 1}</TableCell>
                       <TableCell>{row.id}</TableCell>
                       <TableCell>{row.name}</TableCell>
                       <TableCell>

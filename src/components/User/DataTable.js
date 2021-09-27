@@ -115,7 +115,7 @@ const UserDataTable = () => {
                       tabIndex={-1}
                       key={row.code}
                     >
-                      <TableCell>{index + 1}</TableCell>
+                      <TableCell>{page * rowsPerPage + index + 1}</TableCell>
                       <TableCell>{row.fullname}</TableCell>
                       <TableCell>{row.phone}</TableCell>
                       <TableCell>{row.username}</TableCell>

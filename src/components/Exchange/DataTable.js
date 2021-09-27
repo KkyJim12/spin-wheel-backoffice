@@ -85,7 +85,7 @@ const RandomDataTable = () => {
               .map((row, index) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                    <TableCell>{index + 1}</TableCell>
+                    <TableCell>{page * rowsPerPage + index + 1}</TableCell>
                     <TableCell>{row.event.name}</TableCell>
                     <TableCell>
                       <Box display="flex" flexDirection="column">
