@@ -5,10 +5,10 @@ const CodeIndexPage = () => {
   return (
     <>
       <Grid container>
-        <Grid item md={6}>
+        <Grid item xs={8} md={6}>
           <Typography variant="h4">โค้ด</Typography>
         </Grid>
-        <Grid item md={6} align="end">
+        <Grid item xs={4} md={6} align="end">
           <Button
             href="/code/create"
             variant="contained"

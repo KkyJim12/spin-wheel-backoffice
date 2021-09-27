@@ -5,11 +5,11 @@ const ExchangeIndexPage = () => {
   return (
     <>
       <Grid container>
-        <Grid item md="6">
+        <Grid item lg={6}>
           <Typography variant="h4">ประวัติการแลกของรางวัล</Typography>
         </Grid>
-        <Grid item md="12">
-          <Box mt={2}>
+        <Grid item lg={12}>
+          <Box>
             <ExchangeDataTable />
           </Box>
         </Grid>

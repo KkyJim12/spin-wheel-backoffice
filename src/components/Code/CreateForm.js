@@ -1,19 +1,20 @@
-import { useState } from 'react';
-import Card from '@material-ui/core/Card';
-import TextField from '@material-ui/core/TextField';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import Alert from '@material-ui/lab/Alert';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-import moment from 'moment';
-import { makeStyles } from '@material-ui/core/styles';
+import { useState } from "react";
+import Card from "@material-ui/core/Card";
+import TextField from "@material-ui/core/TextField";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import moment from "moment";
+import { makeStyles } from "@material-ui/core/styles";
+import { isMobile } from "react-device-detect";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 600,
-    '& > * + *': {
+    "& > * + *": {
       marginTop: theme.spacing(8),
     },
   },
@@ -21,9 +22,9 @@ const useStyles = makeStyles((theme) => ({
 
 const CreateForm = () => {
   const classes = useStyles();
-  let initDate = moment().add(5, 'days').format('YYYY-MM-DDTHH:mm:ss');
+  let initDate = moment().add(5, "days").format("YYYY-MM-DDTHH:mm:ss");
   const history = useHistory();
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("");
   const [expireDate, setExpireDate] = useState(initDate);
   const [error, setError] = useState([]);
 
@@ -41,11 +42,11 @@ const CreateForm = () => {
 
   const storeCode = async () => {
     try {
-      await axios.post(process.env.REACT_APP_API_URL + '/api/v1/codes', {
+      await axios.post(process.env.REACT_APP_API_URL + "/api/v1/codes", {
         key: code,
         expireDate: expireDate,
       });
-      history.push('/code');
+      history.push("/code");
     } catch (error) {
       setError(error.response.data.errors);
     }
@@ -60,11 +61,11 @@ const CreateForm = () => {
               <Snackbar
                 key={index}
                 open={true}
-                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: "right", vertical: "top" }}
                 autoHideDuration={3000}
-                onClose={() => setError('')}
+                onClose={() => setError("")}
               >
-                <Alert variant='filled' severity='error'>
+                <Alert variant="filled" severity="error">
                   {item.message}
                 </Alert>
               </Snackbar>
@@ -75,31 +76,39 @@ const CreateForm = () => {
 
       <Card>
         <Box p={4}>
-          <Box display='flex' mb={2}>
-            <Box flexGrow={1} mr={2}>
+          <Box
+            display="flex"
+            flexDirection={isMobile ? "column" : "row"}
+            mb={2}
+          >
+            <Box flexGrow={1} mr={isMobile ? 0 : 2}>
               <TextField
                 value={code}
-                variant='outlined'
-                id='outlined-basic'
-                label='รหัสเติม'
+                variant="outlined"
+                id="outlined-basic"
+                label="รหัสเติม"
                 fullWidth
                 onChange={(e) => setCode(e.target.value)}
               />
             </Box>
-            <Button
-              onClick={() => generateCode()}
-              variant='contained'
-              color='secondary'
-            >
-              สร้างรหัสอัตโนมัติ
-            </Button>
+            <Box mt={isMobile && 2} fullWidth>
+              <Button
+                fullWidth
+                size="large"
+                onClick={() => generateCode()}
+                variant="contained"
+                color="secondary"
+              >
+                สร้างรหัสอัตโนมัติ
+              </Button>
+            </Box>
           </Box>
           <Box mb={2}>
             <TextField
               fullWidth
-              id='datetime-local'
-              label='วันหมดอายุ'
-              type='datetime-local'
+              id="datetime-local"
+              label="วันหมดอายุ"
+              type="datetime-local"
               defaultValue={expireDate}
               InputLabelProps={{
                 shrink: true,
@@ -110,8 +119,8 @@ const CreateForm = () => {
           <Box>
             <Button
               onClick={() => storeCode()}
-              variant='contained'
-              color='primary'
+              variant="contained"
+              color="primary"
               fullWidth
             >
               เพิ่มโค้ด

@@ -90,9 +90,7 @@ const EditForm = () => {
 
       setEventPrizeExchange(newEventPrizeExchange);
       setName(response.data.data.event.name);
-      setEndDate(
-        moment(response.data.data.event.endDate).format("YYYY-MM-DD")
-      );
+      setEndDate(moment(response.data.data.event.endDate).format("YYYY-MM-DD"));
       setEventPrizeExchange(response.data.data.eventPrizeExchange);
     } catch (error) {
       console.log(error.response);
@@ -278,7 +276,7 @@ const EditForm = () => {
       )}
       <Box mt={2}>
         <Grid container>
-          <Grid item md={6}>
+          <Grid item xs={12} lg={6}>
             <Box mb={2} mr={2}>
               <Card>
                 <Box p={4}>
@@ -308,7 +306,7 @@ const EditForm = () => {
                 </Box>
               </Card>
             </Box>
-            <Box mr={2}>
+            <Box mr={2} mb={3}>
               <Card>
                 <Box p={4}>
                   <Box display="flex" alignItems="center">
@@ -414,7 +412,7 @@ const EditForm = () => {
               </Card>
             </Box>
           </Grid>
-          <Grid item md={6}>
+          <Grid item xs={12} lg={6}>
             <Box>
               <Card>
                 <Box p={4}>

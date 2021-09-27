@@ -18,6 +18,7 @@ import { Snackbar } from "@material-ui/core";
 import Alert from "@material-ui/lab/ALert";
 import { makeStyles } from "@material-ui/core/styles";
 import { ColorPicker, createColor } from "material-ui-color";
+import { isMobile } from "react-device-detect";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -240,7 +241,7 @@ const CreateForm = () => {
       )}
       <Box mt={2}>
         <Grid container>
-          <Grid item md={6}>
+          <Grid item xs={12} lg={6}>
             <Box mb={2} mr={2}>
               <Card>
                 <Box p={4}>
@@ -268,7 +269,7 @@ const CreateForm = () => {
                 </Box>
               </Card>
             </Box>
-            <Box mr={2}>
+            <Box mr={2} mb={3}>
               <Card>
                 <Box p={4}>
                   <Box display="flex" alignItems="center">
@@ -373,11 +374,11 @@ const CreateForm = () => {
               </Card>
             </Box>
           </Grid>
-          <Grid item md={6}>
+          <Grid item xs={12} lg={6}>
             <Box>
               <Card>
                 <Box p={4}>
-                  <Box display="flex" alignItems="center">
+                  <Box display="flex" mt={isMobile ? 2 : 0} alignItems="center">
                     <Box flexGrow={1}>
                       <h1>ของรางวัลแลกเปลี่ยน</h1>
                     </Box>

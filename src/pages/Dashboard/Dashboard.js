@@ -1,10 +1,10 @@
-import Grid from '@material-ui/core/Grid';
+import Grid from "@material-ui/core/Grid";
 
-import ChartStat from 'components/Dashboard/ChartStat';
-import NewUser from 'components/Dashboard/NewUser';
-import LastestTransaction from 'components/Dashboard/LastestTransaction';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import ChartStat from "components/Dashboard/ChartStat";
+import NewUser from "components/Dashboard/NewUser";
+import LastestTransaction from "components/Dashboard/LastestTransaction";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const DashboardPage = () => {
   // const newMemberStat = [
@@ -25,7 +25,7 @@ const DashboardPage = () => {
   const getDashboard = async () => {
     try {
       const response = await axios.get(
-        process.env.REACT_APP_API_URL + '/api/v1/dashboards'
+        process.env.REACT_APP_API_URL + "/api/v1/dashboards"
       );
 
       setData(response.data);
@@ -51,32 +51,32 @@ const DashboardPage = () => {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item md={3}>
-          <ChartStat title='สมาชิกทั้งหมด' number={data.allUserCount} />
+        <Grid item xs={6} lg={3}>
+          <ChartStat title="สมาชิกทั้งหมด" number={data.allUserCount} />
         </Grid>
-        <Grid item md={3}>
+        <Grid item xs={6} lg={3}>
           <ChartStat
-            title='สมาชิกเพิ่มที่ขึ้น 7 วัน'
+            title="สมาชิกเพิ่มที่ขึ้น 7 วัน"
             number={data.newUserWeeklyCount}
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item xs={6} lg={3}>
           <ChartStat
-            title='จำนวนการแลกของรางวัล 7 วัน'
+            title="จำนวนการแลกของรางวัล 7 วัน"
             number={data.prizeExchangeWeeklyCount}
           />
         </Grid>
 
-        <Grid item md={3}>
+        <Grid item xs={6} lg={3}>
           <ChartStat
-            title='จำนวนการสุ่มทั้งหมดใน 7 วัน'
+            title="จำนวนการสุ่มทั้งหมดใน 7 วัน"
             number={data.prizeRandomWeeklyCount}
           />
         </Grid>
-        <Grid item md={8}>
+        <Grid item xs={12} lg={8}>
           <LastestTransaction data={lastTenRandom} />
         </Grid>
-        <Grid item md={4}>
+        <Grid item xs={12} lg={4}>
           <NewUser data={lastTenUser} />
         </Grid>
       </Grid>

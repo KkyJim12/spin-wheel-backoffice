@@ -41,7 +41,7 @@ const UploadPopup = (props) => {
     <>
       <Card style={{ height: "35vh" }}>
         <Box p={5}>
-          <h1>อัพโหลดป๊อปอัพ</h1>
+          <h1>อัพโหลดป๊อปอัพ (800x600)</h1>
           <Box display="flex" alignItems="center" mb={2}>
             <Button
               onClick={() => handleUpload()}
@@ -66,7 +66,7 @@ const UploadPopup = (props) => {
               src={
                 image
                   ? process.env.REACT_APP_API_URL + "/uploads/image/" + image
-                  : Popup
+                  : "https://via.placeholder.com/800x600"
               }
               alt="popup"
             />

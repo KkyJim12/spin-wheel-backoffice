@@ -55,7 +55,7 @@ const UploadBanner = (props) => {
     <>
       <Card style={{ height: "45vh" }}>
         <Box p={5}>
-          <h1>อัพโหลดแบนเนอร์</h1>
+          <h1>อัพโหลดแบนเนอร์ (1110x160)</h1>
           <Box display="flex" alignItems="center" mb={2}>
             <Button
               onClick={() => handleUpload()}
@@ -80,7 +80,7 @@ const UploadBanner = (props) => {
               src={
                 image
                   ? process.env.REACT_APP_API_URL + "/uploads/image/" + image
-                  : Banner
+                  : "https://via.placeholder.com/1110x160"
               }
               alt="banner"
             />

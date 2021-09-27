@@ -41,7 +41,7 @@ const UploadBackground = (props) => {
     <>
       <Card style={{ height: "82vh" }}>
         <Box p={5}>
-          <h1>อัพโหลดพื้นหลัง</h1>
+          <h1>อัพโหลดพื้นหลัง (1920x1080)</h1>
           <Box display="flex" alignItems="center" mb={2}>
             <Button
               onClick={() => handleUpload()}
@@ -65,7 +65,7 @@ const UploadBackground = (props) => {
             src={
               image
                 ? process.env.REACT_APP_API_URL + "/uploads/image/" + image
-                : Background
+                : "https://via.placeholder.com/1920x1080"
             }
             alt="background"
           />

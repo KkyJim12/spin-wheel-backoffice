@@ -5,10 +5,10 @@ const EventIndexPage = () => {
   return (
     <>
       <Grid container>
-        <Grid item md={6}>
+        <Grid item xs={8} lg={6}>
           <Typography variant="h4">กิจกรรม</Typography>
         </Grid>
-        <Grid item md={6} align="end">
+        <Grid item xs={4} lg={6} align="end">
           <Button
             href="/event/create"
             variant="contained"

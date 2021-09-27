@@ -5,10 +5,10 @@ const UserCreatePage = () => {
   return (
     <>
       <Grid container>
-        <Grid item md='6'>
+        <Grid item xs={8} lg={6}>
           <Typography variant='h4'>เพิ่มสมาชิก</Typography>
         </Grid>
-        <Grid item md='6' align='end'>
+        <Grid item xs={4} lg={6} align='end'>
           <Button
             href='/user'
             variant='contained'
