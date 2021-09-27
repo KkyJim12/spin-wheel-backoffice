@@ -19,8 +19,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/DashboardOutlined";
 import MemberIcon from "@material-ui/icons/PeopleOutline";
 import CodeIcon from "@material-ui/icons/KeyboardOutlined";
-import RandomIcon from '@material-ui/icons/NotesOutlined'
-import ExchangeIcon from '@material-ui/icons/SyncAltOutlined'
+import RandomIcon from "@material-ui/icons/NotesOutlined";
+import ExchangeIcon from "@material-ui/icons/SyncAltOutlined";
 import StarsIcon from "@material-ui/icons/StarsOutlined";
 import PrizeIcon from "@material-ui/icons/EmojiEventsOutlined";
 import SettingsIcon from "@material-ui/icons/SettingsOutlined";
@@ -147,6 +147,7 @@ export default function MiniDrawer(props) {
             startIcon={<SignoutIcon />}
             edge="end"
             href="/login"
+            onClick={() => localStorage.removeItem("token")}
           >
             ลงชื่อออก
           </Button>
