@@ -4,6 +4,7 @@ import Box from "@material-ui/core/Box";
 import Popup from "assets/Image/popup.png";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import { isMobile } from "react-device-detect";
 
 const UploadPopup = (props) => {
   const handleUpload = () => {
@@ -39,7 +40,7 @@ const UploadPopup = (props) => {
 
   return (
     <>
-      <Card style={{ height: "35vh" }}>
+      <Card style={{ height: isMobile ? "100vh" : "35vh" }}>
         <Box p={5}>
           <h1>อัพโหลดป๊อปอัพ (800x600)</h1>
           <Box display="flex" alignItems="center" mb={2}>

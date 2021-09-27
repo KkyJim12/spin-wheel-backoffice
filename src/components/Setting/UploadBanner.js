@@ -5,6 +5,7 @@ import Banner from "assets/Image/banner.png";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import { TextField } from "@material-ui/core";
+import { isMobile } from "react-device-detect";
 
 const UploadBanner = (props) => {
   const handleUpload = () => {
@@ -53,7 +54,7 @@ const UploadBanner = (props) => {
 
   return (
     <>
-      <Card style={{ height: "45vh" }}>
+      <Card style={{ height: isMobile ? "100vh" : "45vh" }}>
         <Box p={5}>
           <h1>อัพโหลดแบนเนอร์ (1110x160)</h1>
           <Box display="flex" alignItems="center" mb={2}>

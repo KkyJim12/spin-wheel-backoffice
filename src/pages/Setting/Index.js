@@ -34,21 +34,21 @@ const SettingIndexPage = () => {
   return (
     <>
       <Grid container>
-        <Grid item md={6}>
+        <Grid item lg={6}>
           <Box p={2}>
             <UploadBackground image={backgroundImage} />
           </Box>
         </Grid>
-        <Grid item md={6}>
+        <Grid item lg={6}>
           <Box p={2}>
             <Grid container>
               <Box mb={2}>
-                <Grid item md={12}>
+                <Grid item lg={12}>
                   <UploadPopup image={popUpImage} />
                 </Grid>
               </Box>
               <Box>
-                <Grid item md={12}>
+                <Grid item lg={12}>
                   <UploadBanner bannerLink={bannerLink} image={bannerImage} />
                 </Grid>
               </Box>

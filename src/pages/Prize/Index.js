@@ -5,10 +5,10 @@ const PrizeIndexPage = () => {
   return (
     <>
       <Grid container>
-        <Grid item md="6">
+        <Grid item xs={8} lg={6}>
           <Typography variant="h4">ของรางวัล</Typography>
         </Grid>
-        <Grid item md="6" align="end">
+        <Grid item xs={4} lg={6} align="end">
           <Button
             href="/prize/create"
             variant="contained"

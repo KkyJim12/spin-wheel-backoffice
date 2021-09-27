@@ -94,7 +94,11 @@ const EditForm = () => {
       )}
       <Card>
         <Box p={4}>
-          <Box display="flex" mb={2}>
+          <Box
+            display="flex"
+            mb={2}
+            flexDirection={isMobile ? "column" : "row"}
+          >
             <Box flexGrow={1} mr={isMobile ? 0 : 2}>
               <TextField
                 value={code}
@@ -111,6 +115,7 @@ const EditForm = () => {
                 variant="contained"
                 color="secondary"
                 size="large"
+                fullWidth
               >
                 สร้างรหัสอัตโนมัติ
               </Button>
